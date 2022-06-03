@@ -1,0 +1,167 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ Slot FrameWidgetSlot "{5986E5DDAD6925CF}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 500
+  OffsetRight -500
+  SizeY 700
+  OffsetBottom -700
+ }
+ {
+  ImageWidgetClass "{5986E5DCF0A09E1C}" {
+   Name "Background"
+   Slot FrameWidgetSlot {
+    OffsetLeft 0
+    OffsetTop 0
+    SizeX 500
+    OffsetRight -500
+    SizeY 700
+    OffsetBottom -700
+   }
+   Color 0 0 0 0.392
+   Size 1920 1080
+  }
+  VerticalLayoutWidgetClass "{5986DBAEAC44523F}" {
+   Name "VerticalLayout0"
+   Slot FrameWidgetSlot {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 500
+    OffsetRight -500
+    SizeY 500
+    OffsetBottom -500
+   }
+   {
+    SizeLayoutWidgetClass "{5986C8AD9B44281F}" {
+     Name "SizeLayout0"
+     Slot LayoutSlot "{5986DBAEA1D6AD20}" {
+     }
+     AllowHeightOverride 1
+     HeightOverride 26
+     {
+      PanelWidgetClass "{5986E5DEA3BFD572}" {
+       Name "Border_TraderName"
+       Slot AlignableSlot "{5986E5DEA3BFD49B}" {
+       }
+       Color 0.485 0.761 0.491 0.784
+       {
+        RichTextWidgetClass "{5986C8ADEE356408}" {
+         Name "TraderName"
+         Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
+          OffsetLeft 0
+          OffsetTop 0
+          SizeX 500
+          OffsetRight -500
+          SizeY 26
+          OffsetBottom -26
+         }
+         Text "TRADER NAME"
+         "Horizontal Alignment" Center
+         "Vertical Alignment" Center
+        }
+       }
+      }
+     }
+    }
+    OverlayWidgetClass "{5986DBAC37A1266B}" {
+     Name "TraderSectionButtons"
+     Slot LayoutSlot "{5986DBAC21B4BB89}" {
+      Padding 10 0 10 0
+     }
+     {
+      ScaleWidgetClass "{5986DBADADFF6621}" {
+       Name "SizeLayout0"
+       Slot OverlayWidgetSlot "{5986DBADADFF6649}" {
+        HorizontalAlign 0
+       }
+       {
+        ButtonWidgetClass "{5986DBAC28656A12}" {
+         Name "TabSellButton"
+         Slot OverlayWidgetSlot "{5986DBAC28656A26}" {
+         }
+         components {
+          HoverButtonComponent "{5986DBAA881D6666}" {
+          }
+          BasicButtonComponent "{5986E5D8A2CE58B6}" {
+          }
+         }
+         {
+          PanelWidgetClass "{5986E5DE28B54088}" {
+           Name "Border_SellButton"
+           Slot ButtonWidgetSlot {
+           }
+           Color 0.485 0.761 0.491 0.784
+           {
+            RichTextWidgetClass "{5986E5DE28B54089}" {
+             Name "TabSellButtonLabel"
+             Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
+              OffsetLeft 0
+              OffsetTop 0
+              SizeX 200
+              OffsetRight -200
+              SizeY 26
+              OffsetBottom -26
+             }
+             Text "SELL ITEMS"
+             "Horizontal Alignment" Center
+             "Vertical Alignment" Center
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      ScaleWidgetClass "{5986DBAD79191CFC}" {
+       Name "SizeLayout1"
+       Slot OverlayWidgetSlot "{5986DBAD79191C02}" {
+        HorizontalAlign 2
+        VerticalAlign 0
+       }
+       {
+        ButtonWidgetClass "{5986DBADDF3B3A28}" {
+         Name "TabBuyButton"
+         Slot OverlayWidgetSlot "{5986DBAC28656A26}" {
+         }
+         components {
+          HoverButtonComponent "{5986DBAA4109602B}" {
+          }
+          BasicButtonComponent "{5986E5D8499F4566}" {
+          }
+         }
+         {
+          PanelWidgetClass "{5986E5DFC555F069}" {
+           Name "Border_BuyButton"
+           Slot ButtonWidgetSlot "{5986E5DFC555F0F1}" {
+           }
+           Color 0.485 0.761 0.491 0.784
+           {
+            RichTextWidgetClass "{5986E5DFC555F06A}" {
+             Name "TabBuyButtonLabel"
+             Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
+              OffsetLeft 0
+              OffsetTop 0
+              SizeX 200
+              OffsetRight -200
+              SizeY 26
+              OffsetBottom -26
+             }
+             Text "BUY ITEMS"
+             "Horizontal Alignment" Center
+             "Vertical Alignment" Center
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{26E46903ED25C635}UI/Layouts/Menus/Trader/TraderMainView.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

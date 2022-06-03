@@ -1,0 +1,45 @@
+FrameWidgetClass {
+ Name "EL_TraderItemElement"
+ Slot FrameWidgetSlot "{59869DF0D3AFF247}" {
+  OffsetLeft 0
+  OffsetTop 0
+  SizeX 150
+  OffsetRight -150
+  SizeY 50
+  OffsetBottom -50
+ }
+ {
+  ItemPreviewWidgetClass "{59869DF7395B8D77}" {
+   Name "ItemPreview"
+   Slot FrameWidgetSlot "{59869DF0C9BE7686}" {
+    Anchor 0 0.5 0 0.5
+    PositionX 5
+    OffsetLeft 5
+    PositionY -16
+    OffsetTop -16
+    SizeX 32
+    OffsetRight -37
+    SizeY 32
+    OffsetBottom -16
+   }
+  }
+  RichTextWidgetClass "{59869DF1C0D750E9}" {
+   Name "ItemName"
+   Slot FrameWidgetSlot "{59869DF1C0D75034}" {
+    Anchor 0 0.5 0 0.5
+    PositionX 40
+    OffsetLeft 40
+    PositionY -16
+    OffsetTop -16
+    SizeX 104
+    OffsetRight -144
+    SizeY 32
+    OffsetBottom -16
+   }
+   Text "Item Name"
+   "Font Size" 16
+   "Min Font Size" 16
+   "Vertical Alignment" Center
+  }
+ }
+}
