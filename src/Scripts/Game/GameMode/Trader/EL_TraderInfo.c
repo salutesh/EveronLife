@@ -1,36 +1,15 @@
-//! Config template for vehicles available for request in Campaign
+//! Config template for a trader item
 [BaseContainerProps(), SCR_BaseContainerCustomTitleResourceName("m_Prefab", true)]
-class EL_TraderInfo
+class EL_TraderItemInfo
 {
 	[Attribute("", UIWidgets.ResourcePickerThumbnail, "", "et")]
 	protected ResourceName m_Prefab;
-	[Attribute("Vehicle", desc: "Display name to be shown in UI.")]
-	protected string m_sDisplayName;
-	[Attribute("VEHICLE", desc: "Display name to be shown in UI (upper case).")]
-	protected string m_sDisplayNameUC;
-	[Attribute("", desc: "Description to be shown in UI.")]
-	protected string m_sDescription;
 	[Attribute("", desc: "Price to be displayed in UI.")]
 	protected int m_sPrice;
 
 	ResourceName GetPrefab()
 	{
 		return m_Prefab;
-	}
-
-	string GetDisplayName()
-	{
-		return m_sDisplayName;
-	}
-
-	string GetDisplayNameUpperCase()
-	{
-		return m_sDisplayNameUC;
-	}
-
-	string GetDescription()
-	{
-		return m_sDescription;
 	}
 
 	int GetPrice()
@@ -42,16 +21,32 @@ class EL_TraderInfo
 [BaseContainerProps(configRoot: true)]
 class EL_TraderInfoList
 {
-	[Attribute(desc: "Trader item list.")]
-	private ref array<ref EL_TraderInfo> m_TraderItemList;
+	[Attribute(desc: "Displayed trader name.")]
+	private string m_TraderName;
+	[Attribute(desc: "Trader item list of the items this trader will sell to players.")]
+	private ref array<ref EL_TraderItemInfo> m_TraderItemSellList;
+	[Attribute(desc: "Trader item list of the items this trader will buy from players.")]
+	private ref array<ref EL_TraderItemInfo> m_TraderItemBuyList;
 
-	void GetTraderItemList(out notnull array<ref EL_TraderInfo> traderList)
+	
+	string GetTraderName()
 	{
-		traderList = m_TraderItemList;
+		return m_TraderName;
+	}
+	
+	void GetTraderItemSellList(out notnull array<ref EL_TraderItemInfo> traderItemSellList)
+	{
+		traderItemSellList = m_TraderItemSellList;
+	}
+	
+	void GetTraderItemBuyList(out notnull array<ref EL_TraderItemInfo> traderItemBuyList)
+	{
+		traderItemBuyList = m_TraderItemBuyList;
 	}
 
 	void ~EL_TraderInfoList()
 	{
-		m_TraderItemList = null;
+		m_TraderItemSellList = null;
+		m_TraderItemBuyList = null;
 	}
 };

@@ -6,10 +6,9 @@ class EL_OpenTraderMenu : ScriptedUserAction
 		
 	}
 
-	//------------------------------------------------------------------------------------------------
-
 	//! Method called when the action is interrupted/canceled.
 	//! \param pUserEntity The entity that was performing this action prior to interruption
+	//------------------------------------------------------------------------------------------------
 	override void OnActionCanceled(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 
@@ -17,11 +16,13 @@ class EL_OpenTraderMenu : ScriptedUserAction
 
 	//! Method called from scripted interaction handler when an action is started (progress bar appeared)
 	//! \param pUserEntity The entity that started performing this action
+	//------------------------------------------------------------------------------------------------
 	override void OnActionStart(IEntity pUserEntity)
 	{
 
 	}
-
+	
+	//------------------------------------------------------------------------------------------------
 	override bool CanBroadcastScript()
 	{
 		return false;
@@ -52,7 +53,9 @@ class EL_OpenTraderMenu : ScriptedUserAction
 
 		// Find Everon Life network component to send RPC to server
 		EL_NetworkComponent networkComponent = EL_NetworkComponent.Cast(playerController.FindComponent(EL_NetworkComponent));
-		if (networkComponent)
-			networkComponent.OpenTraderMenu();
+		if (!networkComponent) 
+			return;
+		
+		networkComponent.OpenTraderMenu();
 	}
 };

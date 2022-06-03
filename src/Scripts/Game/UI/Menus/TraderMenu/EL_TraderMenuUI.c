@@ -3,7 +3,9 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	protected RichTextWidget m_wTraderName;
 	protected ButtonWidget m_wButtonShowSellSection;
 	protected ButtonWidget m_wButtonShowBuySection;
-	protected EL_TraderInfoList m_TraderItemList;
+	protected ResourceName m_TraderConfig;
+	protected ref array<ref EL_TraderItemInfo> m_aTraderItemBuyList;
+	protected ref array<ref EL_TraderItemInfo> m_aTraderItemSellList;
 	
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuUpdate(float tDelta)
@@ -63,16 +65,13 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	//------------------------------------------------------------------------------------------------
 	override void OnAction(SCR_NavigationButtonComponent comp, string action, SCR_InventoryStorageBaseUI pParentStorage = null, int traverseStorageIndex = -1)
 	{
-		switch (action)
-		{
-			
-		}
+		//! Do nothing - YIKES
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SetTraderInfo(EL_TraderInfoList traderInfo)
+	void SetTraderConfig(ResourceName traderConfig)
 	{
-		m_TraderItemList = traderInfo
+		m_TraderConfig = traderConfig
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -89,6 +88,21 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		Print(ToString() + "::ShowBuySection - Start");
 		
 		Print(ToString() + "::ShowBuySection - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void GetTraderInfoFromConfig()
+	{
+		//Parse & register tarder configurations	
+		m_aTraderItemBuyList = new array<ref EL_TraderItemInfo>;
+		m_aTraderItemSellList = new array<ref EL_TraderItemInfo>;
+		
+		Resource container = BaseContainerTools.LoadContainer(m_TraderConfig);
+		if (container && container.IsValid()) {
+			EL_TraderInfoList list = EL_TraderInfoList.Cast(BaseContainerTools.CreateInstanceFromContainer(container.GetResource().ToBaseContainer()));
+			list.GetTraderItemBuyList(m_aTraderItemBuyList);
+			list.GetTraderItemSellList(m_aTraderItemSellList);
+		}
 	}
 };
 
