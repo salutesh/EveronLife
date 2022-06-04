@@ -3,28 +3,65 @@ FrameWidgetClass {
  Slot FrameWidgetSlot "{5986E5DDAD6925CF}" {
   OffsetLeft 0
   OffsetTop 0
-  SizeX 500
-  OffsetRight -500
+  SizeX 800
+  OffsetRight -800
   SizeY 700
   OffsetBottom -700
  }
  {
   ImageWidgetClass "{5986E5DCF0A09E1C}" {
    Name "Background"
-   Slot FrameWidgetSlot {
+   Slot FrameWidgetSlot "{5986FB6C4E6D93FA}" {
     OffsetLeft 0
     OffsetTop 0
-    SizeX 500
-    OffsetRight -500
+    SizeX 800
+    OffsetRight -800
     SizeY 700
     OffsetBottom -700
    }
    Color 0 0 0 0.392
    Size 1920 1080
   }
+  OverlayWidgetClass "{5988A216062E00CB}" : "{6F1E013D3D33703D}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
+   Name "MenuBase0"
+   Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+   }
+   {
+    SizeLayoutWidgetClass "{5988A2160FE370A6}" {
+     Prefab "{5988A2160FE370A6}"
+     WidthOverride 700
+     HeightOverride 650
+     {
+      VerticalLayoutWidgetClass "{5988A2160FE370A0}" {
+       Prefab "{5988A2160FE370A0}"
+       {
+        VerticalLayoutWidgetClass "{5988A2160FE370AE}" {
+         Prefab "{5988A2160FE370AE}"
+         components {
+          SCR_TabViewComponent "{546B27D01CA8A38D}" {
+           m_aElements {
+            SCR_TabViewContent "{5988A2175C5FB0CB}" {
+             m_sTabButtonContent "BUY ITEMS"
+            }
+            SCR_TabViewContent "{5988A2174B75AF9D}" {
+             m_sTabButtonContent "SELL ITEMS"
+            }
+           }
+           m_fTabWidth 250
+          }
+         }
+         {
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
   VerticalLayoutWidgetClass "{5986DBAEAC44523F}" {
    Name "VerticalLayout0"
-   Slot FrameWidgetSlot {
+   Slot FrameWidgetSlot "{5986FB6C4E6D930A}" {
     PositionX 0
     OffsetLeft 0
     PositionY 0
@@ -33,125 +70,127 @@ FrameWidgetClass {
     OffsetRight -500
     SizeY 500
     OffsetBottom -500
+    Alignment 0 0
    }
+   "Is Enabled" 0
+   "Is Visible" 0
    {
     SizeLayoutWidgetClass "{5986C8AD9B44281F}" {
      Name "SizeLayout0"
      Slot LayoutSlot "{5986DBAEA1D6AD20}" {
      }
+     "Is Enabled" 0
+     "Is Visible" 0
      AllowHeightOverride 1
-     HeightOverride 26
+     HeightOverride 30
      {
       PanelWidgetClass "{5986E5DEA3BFD572}" {
        Name "Border_TraderName"
        Slot AlignableSlot "{5986E5DEA3BFD49B}" {
        }
-       Color 0.485 0.761 0.491 0.784
+       style outline_2px
        {
-        RichTextWidgetClass "{5986C8ADEE356408}" {
-         Name "TraderName"
-         Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
+        ImageWidgetClass "{59886E916FEFA398}" {
+         Name "HeaderBackground"
+         Slot FrameWidgetSlot "{59886E916FEFA3A0}" {
           OffsetLeft 0
           OffsetTop 0
           SizeX 500
           OffsetRight -500
+          SizeY 30
+          OffsetBottom -30
+         }
+         Color 0.054 0.054 0.054 1
+         Size 32 26
+        }
+        RichTextWidgetClass "{5986C8ADEE356408}" {
+         Name "TraderName"
+         Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
+          Anchor 0 0.5 0 0.5
+          PositionX 0
+          OffsetLeft 0
+          PositionY -12.5
+          OffsetTop -12.5
+          SizeX 500
+          OffsetRight -500
           SizeY 26
-          OffsetBottom -26
+          OffsetBottom -13.5
          }
          Text "TRADER NAME"
          "Horizontal Alignment" Center
          "Vertical Alignment" Center
         }
+        PanelWidgetClass "{59886E913D7DF2D0}" {
+         Name "HeaderBorder"
+         Slot FrameWidgetSlot "{59886E913D7DF2F2}" {
+          OffsetLeft 0
+          OffsetTop 0
+          SizeX 500
+          OffsetRight -500
+          SizeY 30
+          OffsetBottom -30
+         }
+         Color 0.761 0.386 0.078 1
+         style outline_2px
+        }
        }
       }
      }
+    }
+    SizeLayoutWidgetClass "{59886E92F1AFF4CD}" {
+     Name "spacer0"
+     Slot LayoutSlot "{59886E92F1AFF4E9}" {
+     }
+     "Is Enabled" 0
+     "Is Visible" 0
+     AllowWidthOverride 1
+     WidthOverride 500
+     AllowHeightOverride 1
+     HeightOverride 10
     }
     OverlayWidgetClass "{5986DBAC37A1266B}" {
      Name "TraderSectionButtons"
      Slot LayoutSlot "{5986DBAC21B4BB89}" {
       Padding 10 0 10 0
      }
+     "Is Enabled" 0
+     "Is Visible" 0
      {
-      ScaleWidgetClass "{5986DBADADFF6621}" {
-       Name "SizeLayout0"
-       Slot OverlayWidgetSlot "{5986DBADADFF6649}" {
+      ButtonWidgetClass "{59886E99DF7F972A}" : "{4913D5BED7967220}UI/Layouts/WidgetLibrary/Buttons/WLib_ButtonTextImage.layout" {
+       Name "SellSectionButton"
+       Slot OverlayWidgetSlot "{59886E99DF7F9746}" {
         HorizontalAlign 0
-       }
-       {
-        ButtonWidgetClass "{5986DBAC28656A12}" {
-         Name "TabSellButton"
-         Slot OverlayWidgetSlot "{5986DBAC28656A26}" {
-         }
-         components {
-          HoverButtonComponent "{5986DBAA881D6666}" {
-          }
-          BasicButtonComponent "{5986E5D8A2CE58B6}" {
-          }
-         }
-         {
-          PanelWidgetClass "{5986E5DE28B54088}" {
-           Name "Border_SellButton"
-           Slot ButtonWidgetSlot {
-           }
-           Color 0.485 0.761 0.491 0.784
-           {
-            RichTextWidgetClass "{5986E5DE28B54089}" {
-             Name "TabSellButtonLabel"
-             Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
-              OffsetLeft 0
-              OffsetTop 0
-              SizeX 200
-              OffsetRight -200
-              SizeY 26
-              OffsetBottom -26
-             }
-             Text "SELL ITEMS"
-             "Horizontal Alignment" Center
-             "Vertical Alignment" Center
-            }
-           }
-          }
-         }
-        }
-       }
-      }
-      ScaleWidgetClass "{5986DBAD79191CFC}" {
-       Name "SizeLayout1"
-       Slot OverlayWidgetSlot "{5986DBAD79191C02}" {
-        HorizontalAlign 2
         VerticalAlign 0
        }
+       components {
+        SCR_ButtonTextComponent "{5548F0143AE99095}" {
+         m_sText "SELL ITEMS"
+        }
+       }
        {
-        ButtonWidgetClass "{5986DBADDF3B3A28}" {
-         Name "TabBuyButton"
-         Slot OverlayWidgetSlot "{5986DBAC28656A26}" {
+        SizeLayoutWidgetClass "{59886E982AC8779E}" {
+         Prefab "{59886E982AC8779E}"
+         Slot ButtonWidgetSlot "{5548E6E7E6AEDDC1}" {
+          HorizontalAlign 0
+          VerticalAlign 0
          }
-         components {
-          HoverButtonComponent "{5986DBAA4109602B}" {
-          }
-          BasicButtonComponent "{5986E5D8499F4566}" {
-          }
-         }
+         AllowWidthOverride 1
+         WidthOverride 200
          {
-          PanelWidgetClass "{5986E5DFC555F069}" {
-           Name "Border_BuyButton"
-           Slot ButtonWidgetSlot "{5986E5DFC555F0F1}" {
-           }
-           Color 0.485 0.761 0.491 0.784
+          OverlayWidgetClass "{59886E982AC87799}" {
+           Prefab "{59886E982AC87799}"
            {
-            RichTextWidgetClass "{5986E5DFC555F06A}" {
-             Name "TabBuyButtonLabel"
-             Slot FrameWidgetSlot "{5986E5DE50F1B192}" {
-              OffsetLeft 0
-              OffsetTop 0
-              SizeX 200
-              OffsetRight -200
-              SizeY 26
-              OffsetBottom -26
+            HorizontalLayoutWidgetClass "{59886E982AC87784}" {
+             Prefab "{59886E982AC87784}"
+             Slot OverlayWidgetSlot "{557098267862A74F}" {
+              HorizontalAlign 0
              }
-             Text "BUY ITEMS"
-             "Horizontal Alignment" Center
-             "Vertical Alignment" Center
+             {
+              TextWidgetClass "{59886E982AC87781}" {
+               Prefab "{59886E982AC87781}"
+               Text "SELL ITEMS"
+              }
+             }
             }
            }
           }
@@ -160,6 +199,15 @@ FrameWidgetClass {
        }
       }
      }
+    }
+    SizeLayoutWidgetClass "{59886E92E494771C}" {
+     Name "spacer1"
+     Slot LayoutSlot "{59886E92F1AFF4E9}" {
+     }
+     AllowWidthOverride 1
+     WidthOverride 500
+     AllowHeightOverride 1
+     HeightOverride 10
     }
    }
   }

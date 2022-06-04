@@ -1,45 +1,100 @@
-FrameWidgetClass {
+OverlayWidgetClass {
  Name "EL_TraderItemElement"
  Slot FrameWidgetSlot "{59869DF0D3AFF247}" {
   OffsetLeft 0
   OffsetTop 0
-  SizeX 150
-  OffsetRight -150
-  SizeY 50
-  OffsetBottom -50
+  SizeX 230
+  OffsetRight -230
+  SizeY 60
+  OffsetBottom -60
+  SizeToContent 1
  }
+ Color 1 1 1 0
  {
-  ItemPreviewWidgetClass "{59869DF7395B8D77}" {
-   Name "ItemPreview"
-   Slot FrameWidgetSlot "{59869DF0C9BE7686}" {
-    Anchor 0 0.5 0 0.5
-    PositionX 5
-    OffsetLeft 5
-    PositionY -16
-    OffsetTop -16
-    SizeX 32
-    OffsetRight -37
-    SizeY 32
-    OffsetBottom -16
+  ButtonWidgetClass "{59886E9F7D19DCCA}" {
+   Name "Button0"
+   Slot OverlayWidgetSlot "{59886E9F7D19DC11}" {
+    HorizontalAlign 0
+    VerticalAlign 0
    }
-  }
-  RichTextWidgetClass "{59869DF1C0D750E9}" {
-   Name "ItemName"
-   Slot FrameWidgetSlot "{59869DF1C0D75034}" {
-    Anchor 0 0.5 0 0.5
-    PositionX 40
-    OffsetLeft 40
-    PositionY -16
-    OffsetTop -16
-    SizeX 104
-    OffsetRight -144
-    SizeY 32
-    OffsetBottom -16
+   "Inherit Color" 1
+   components {
+    SCR_ButtonBaseComponent "{59886E9F19B65B2F}" {
+    }
    }
-   Text "Item Name"
-   "Font Size" 16
-   "Min Font Size" 16
-   "Vertical Alignment" Center
+   {
+    OverlayWidgetClass "{59886E972972D1D0}" {
+     Name "Overlay0"
+     Slot ButtonWidgetSlot "{59886E9F6AB8F38F}" {
+     }
+     {
+      ImageWidgetClass "{59886E97CC14F574}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{59886E97CC14F49D}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+       }
+       Color 0 0 0 0.588
+       Pivot 0 0.5
+       Size 230 60
+      }
+      SizeLayoutWidgetClass "{59886E87DCEEDC71}" {
+       Name "SizeLayout0"
+       Slot OverlayWidgetSlot "{59886E87DCEEA38B}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+        Padding 0 0 0 0
+       }
+       AllowWidthOverride 1
+       WidthOverride 60
+       AllowHeightOverride 1
+       HeightOverride 60
+       {
+        ItemPreviewWidgetClass "{59869DF7395B8D77}" {
+         Name "ItemPreview"
+         Slot OverlayWidgetSlot "{59886E90A38D2343}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 0 0 0 0
+         }
+        }
+       }
+      }
+      ImageWidgetClass "{59886E979C69063C}" {
+       Name "ItemIcon"
+       Slot OverlayWidgetSlot "{59886E979C69065D}" {
+        HorizontalAlign 0
+        Padding 10 0 0 0
+       }
+       "Is Enabled" 0
+       "Is Visible" 0
+       Texture "{BCAD9A06BDE86E1D}UI/qr_register_code_UI.edds"
+       Image ""
+       Size 32 32
+      }
+      RichTextWidgetClass "{59869DF1C0D750E9}" {
+       Name "ItemName"
+       Slot OverlayWidgetSlot "{59886E90A38D22B4}" {
+        HorizontalAlign 0
+        Padding 70 0 0 0
+       }
+       Text "Item Name"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Vertical Alignment" Center
+      }
+      PanelWidgetClass "{59886E919620ECAA}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{59886E919620ECCB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       Color 0.761 0.386 0.078 1
+       style outline_2px
+      }
+     }
+    }
+   }
   }
  }
 }

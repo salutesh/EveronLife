@@ -1,0 +1,113 @@
+OverlayWidgetClass {
+ Name "MenuBase"
+ Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+  Anchor 0.05 0.05 0.95 0.95
+  PositionX -96
+  OffsetLeft 0
+  PositionY -54
+  OffsetTop 0
+  SizeX 192
+  OffsetRight 0
+  SizeY 108
+  OffsetBottom 0
+  SizeToContent 1
+ }
+ Clipping False
+ Color 0 0 0 0.941
+ {
+  SizeLayoutWidgetClass "{5988A2160FE370A6}" {
+   Name "SizeBase"
+   Slot OverlayWidgetSlot "{589EF8CE4D84EB10}" {
+   }
+   AllowWidthOverride 1
+   WidthOverride 1728
+   AllowHeightOverride 1
+   HeightOverride 972
+   {
+    VerticalLayoutWidgetClass "{5988A2160FE370A0}" {
+     Name "VerticalLayout"
+     Slot OverlayWidgetSlot "{589F04968FC3B215}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      SizeLayoutWidgetClass "{5988A2160FE370A1}" {
+       Name "Header"
+       Slot LayoutSlot "{5488B97C9D820642}" {
+        VerticalAlign 1
+        FillWeight 0.05
+       }
+       "Inherit Color" 1
+       AllowHeightOverride 1
+       HeightOverride 56
+       {
+        OverlayWidgetClass "{5988A2160FE370A2}" {
+         Name "Overlay"
+         Slot LayoutSlot "{58A07816DC169E9B}" {
+          Padding 8 0 0 0
+         }
+         {
+          TextWidgetClass "{5988A2160FE370AC}" : "{9D643D214767D616}UI/layouts/WidgetLibrary/TextWidgets/Text_Heading2.layout" {
+           Name "Title"
+           Slot OverlayWidgetSlot "{58A07816DC6C0038}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           Clipping False
+           "Min Font Size" 32
+          }
+         }
+        }
+       }
+      }
+      VerticalLayoutWidgetClass "{5988A2160FE370AE}" : "{A971263DAE3AD8BC}UI/layouts/WidgetLibrary/TabView/WLib_TabViewHorizontal.layout" {
+       Name "TabViewRoot"
+       Slot LayoutSlot "{589F093AB3EA94D8}" {
+        SizeMode Fill
+       }
+       {
+        SizeLayoutWidgetClass "{0000000041B59A6F}" {
+         Prefab "{0000000041B59A6F}"
+         {
+          HorizontalLayoutWidgetClass "{54ACA2928A1FCB02}" {
+           Prefab "{54ACA2928A1FCB02}"
+           Slot AlignableSlot "{54ACA293E438C97C}" {
+            Padding 0 0 0 0
+           }
+           {
+           }
+          }
+         }
+        }
+        OverlayWidgetClass "{000000001094E915}" {
+         Prefab "{000000001094E915}"
+         Slot LayoutSlot "{5454881316546B14}" {
+          Padding 0 10 0 0
+         }
+        }
+       }
+      }
+      ImageWidgetClass "{5988A2160FE370A8}" {
+       Name "Separator"
+       Slot LayoutSlot "{589F1425E84B4BAB}" {
+        Padding 0 0 0 6
+       }
+       "Is Visible" 0
+       Color 0.761 0.386 0.078 1
+       Size 4 4
+      }
+      ImageWidgetClass "{5988A2160FE370A9}" : "{3C01C7D13C0455E7}UI/layouts/WidgetLibrary/WLib_SeparatorLight.layout" {
+       Name "SeparatorLight"
+       Slot LayoutSlot "{58C359558B417441}" {
+        Padding 0 0 0 6
+       }
+       "Is Visible" 0
+      }
+     }
+    }
+   }
+  }
+ }
+}

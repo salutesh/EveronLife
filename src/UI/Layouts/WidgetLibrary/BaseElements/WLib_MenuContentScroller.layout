@@ -1,0 +1,39 @@
+OverlayWidgetClass {
+ Name "rootFrame"
+ Slot OverlayWidgetSlot "{5988AD9C75D4D878}" {
+  HorizontalAlign 3
+  VerticalAlign 3
+  Padding 0 0 0 0
+ }
+ {
+  ScrollLayoutWidgetClass "{5988AD9C77E01488}" {
+   Name "Scroller"
+   Slot OverlayWidgetSlot "{5988AD9C77E08D4F}" {
+    HorizontalAlign 3
+    VerticalAlign 3
+    Padding 0 0 0 0
+   }
+   Color 0.761 0.392 0.078 1
+   {
+    VerticalLayoutWidgetClass "{5988AD9C77E0148F}" {
+     Name "Content"
+     Slot AlignableSlot "{54890CCE26EF3FDE}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding -4 0 10 0
+     }
+     {
+      GridLayoutWidgetClass "{5988AD9DAA34C926}" {
+       Name "ContentGrid"
+       Slot LayoutSlot "{5988AD9DAA34C916}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+        Padding 0 0 0 0
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -1,15 +1,15 @@
 //! Config template for a trader item
-[BaseContainerProps(), SCR_BaseContainerCustomTitleResourceName("m_Prefab", true)]
+[BaseContainerProps(), SCR_BaseContainerCustomTitleResourceName("m_ResourceName", true)]
 class EL_TraderItemInfo
 {
 	[Attribute("", UIWidgets.ResourcePickerThumbnail, "", "et")]
-	protected ResourceName m_Prefab;
+	protected ResourceName m_ResourceName;
 	[Attribute("", desc: "Price to be displayed in UI.")]
 	protected int m_sPrice;
 
-	ResourceName GetPrefab()
+	ResourceName GetResourceName()
 	{
-		return m_Prefab;
+		return m_ResourceName;
 	}
 
 	int GetPrice()

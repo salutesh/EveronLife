@@ -407,6 +407,6 @@ SCR_ChimeraCharacter Npc2 {
   RplComponent "{59670CC3FB68C515}" {
   }
  }
- coords 106.333 -0.014 134.578
+ coords 108.367 -0.014 134.881
  angleY 171.533
 }

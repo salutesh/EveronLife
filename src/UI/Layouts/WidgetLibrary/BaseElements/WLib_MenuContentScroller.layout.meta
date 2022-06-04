@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{469661C42A64CE57}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuContentScroller.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

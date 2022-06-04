@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{6F1E013D3D33703D}UI/layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

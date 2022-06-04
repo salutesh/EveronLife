@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{4A45216FF21D4965}UI/Layouts/Menus/Trader/EL_TraderMenuList.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

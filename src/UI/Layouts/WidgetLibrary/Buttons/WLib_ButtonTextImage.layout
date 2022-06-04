@@ -1,0 +1,86 @@
+ButtonWidgetClass "{59886E982AC87793}" {
+ Name "Button"
+ Clipping False
+ components {
+  SCR_ButtonTextComponent "{5548F0143AE99095}" {
+   m_bCanBeToggled 0
+   m_BackgroundDefault 1 1 1 0.098
+   m_BackgroundHovered 1 1 1 0.196
+   m_BackgroundSelected 0.761 0.386 0.08 1
+   m_BackgroundSelectedHovered 0.896 0.539 0.184 1
+   m_BackgroundClicked 0.761 0.386 0.08 1
+   m_sText "Button"
+  }
+ }
+ style blank
+ {
+  SizeLayoutWidgetClass "{59886E982AC8779E}" {
+   Name "SizeLayout"
+   Slot ButtonWidgetSlot "{5548E6E7E6AEDDC1}" {
+    HorizontalAlign 3
+    VerticalAlign 3
+   }
+   {
+    OverlayWidgetClass "{59886E982AC87799}" {
+     Name "Overlay"
+     Slot ButtonWidgetSlot "{5548E6E7F213FB11}" {
+      HorizontalAlign 3
+      Padding 4 4 4 4
+     }
+     {
+      ImageWidgetClass "{59886E982AC8779A}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{5548E6E7DF4EE313}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+      }
+      PanelWidgetClass "{59886E982AC8779B}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{55367D8E4A13554A}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+        Padding -4 -4 -4 -4
+       }
+       Clipping False
+       Color 0.761 0.386 0.078 1
+       style outline_2px
+      }
+      HorizontalLayoutWidgetClass "{59886E982AC87784}" {
+       Name "HorizontalLayout0"
+       Slot OverlayWidgetSlot "{557098267862A74F}" {
+        Padding 10 10 20 10
+       }
+       {
+        ScaleWidgetClass "{59886E982AC87786}" {
+         Name "Scale0"
+         Slot LayoutSlot "{557478C2A0AF4E68}" {
+          Padding 0 0 10 0
+         }
+         {
+          ImageWidgetClass "{59886E982AC87787}" {
+           Name "Image0"
+           Slot LayoutSlot "{557098267D2A94B6}" {
+            HorizontalAlign 1
+            VerticalAlign 1
+            Padding 0 0 10 0
+           }
+          }
+         }
+        }
+        TextWidgetClass "{59886E982AC87781}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
+         Name "Text"
+         Slot LayoutSlot "{557098267879217A}" {
+          Padding 0 0 0 0
+         }
+         "Min Font Size" 20
+         "Vertical Alignment" Center
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
