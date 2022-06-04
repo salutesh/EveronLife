@@ -33,9 +33,9 @@ class EL_NetworkComponent : ScriptComponent
 	}
 
 	//------------------------------------------------------------------------------------------------
-	void OpenTraderMenu()
+	void OpenTraderMenu(ResourceName resourceName)
 	{
-		Rpc(RpcDo_ELOnOpenTraderMenu);
+		Rpc(RpcDo_ELOnOpenTraderMenu, resourceName);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -50,9 +50,13 @@ class EL_NetworkComponent : ScriptComponent
 	//***********//
 	//------------------------------------------------------------------------------------------------
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
-	protected void RpcDo_ELOnOpenTraderMenu()
+	protected void RpcDo_ELOnOpenTraderMenu(ResourceName resourceName)
 	{
-		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.ELTraderMenu, 0, true, true);
+		EL_TraderMenuUI traderMenu = EL_TraderMenuUI.Cast(GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.ELTraderMenu, 0, true, true));
+		if (!traderMenu)
+			return;
+		
+		traderMenu.SetTraderConfig(resourceName);
 	}
 
 	//------------------------------------------------------------------------------------------------

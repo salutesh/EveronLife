@@ -53,9 +53,13 @@ class EL_OpenTraderMenu : ScriptedUserAction
 
 		// Find Everon Life network component to send RPC to server
 		EL_NetworkComponent networkComponent = EL_NetworkComponent.Cast(playerController.FindComponent(EL_NetworkComponent));
-		if (!networkComponent) 
+		if (!networkComponent)
 			return;
 		
-		networkComponent.OpenTraderMenu();
+		EL_TraderManagerComponent traderManager = EL_TraderManagerComponent.Cast(pOwnerEntity.FindComponent(EL_TraderManagerComponent));
+		if (!traderManager)
+			return;
+		
+		networkComponent.OpenTraderMenu(traderManager.GetResourceName());
 	}
 };

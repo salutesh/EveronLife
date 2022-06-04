@@ -99,6 +99,9 @@ SCR_ChimeraCharacter Npc2 {
    AimingMaxSpeed 10 5
    AimingSpeedControls 1.5 0.75
   }
+  EL_TraderManagerComponent "{5988D9DC65927EF5}" {
+   m_TraderConfig "{B443D5321B09D546}Configs/Traders/EL_AppleTraderConfig.conf"
+  }
   FactionAffiliationComponent "{59670CC3FB68290F}" {
    "faction affiliation" "US"
   }

@@ -63,7 +63,7 @@ ButtonWidgetClass {
            }
            {
             RichTextWidgetClass "{5988AD9EB6586338}" : "{45BA2EA46F09C0FF}UI/layouts/WidgetLibrary/RichTextWidgets/RichText_InteractiveSmall.layout" {
-             Name "SelectionText"
+             Name "PagesText"
              Slot LayoutSlot "{55367D82CFCF3437}" {
               SizeMode Fill
              }

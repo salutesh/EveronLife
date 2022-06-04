@@ -89,6 +89,15 @@ OverlayWidgetClass {
         }
        }
       }
+      ButtonWidgetClass "{5988D9DA90AFDFE9}" : "{1EEEE01B38FC6E4D}UI/Layouts/WidgetLibrary/SpinBox/WLib_PageSpin.layout" {
+       Name "PagesBox0"
+       Slot LayoutSlot "{5988D9DA90AFDF18}" {
+        HorizontalAlign 3
+        Padding 4 4 4 4
+       }
+       {
+       }
+      }
       ImageWidgetClass "{5988A2160FE370A8}" {
        Name "Separator"
        Slot LayoutSlot "{589F1425E84B4BAB}" {

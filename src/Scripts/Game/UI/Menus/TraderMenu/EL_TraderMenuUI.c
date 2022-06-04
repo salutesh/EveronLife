@@ -21,7 +21,10 @@ class EL_TraderMenuUI: ChimeraMenuBase
 	protected ref array<ref EL_TraderItemInfo> m_aTraderItemSellList;
 	
 	protected ref array<ref EL_TraderMenuUI_ItemElement> m_aTraderItemUIElements;
-	protected static const int S_TILES_GRID_WIDTH = 3;
+	protected const int TILES_GRID_WIDTH = 4;
+	protected const int MAX_ITEMS_PER_PAGE = 32;
+	
+	protected RichTextWidget m_wPagesText;
 	
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuUpdate(float tDelta)
@@ -33,36 +36,14 @@ class EL_TraderMenuUI: ChimeraMenuBase
 	override void OnMenuInit()
 	{
 		Print(ToString() + "::OnMenuInit - Start");
-		
-		super.OnMenuInit();
-				
+						
 		Print(ToString() + "::OnMenuInit - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuOpen()
-	{	
-		Init();
+	{
 		
-		if (!m_TraderConfigData)
-			return;
-		
-		m_wTraderName = TextWidget.Cast(m_wLayoutRoot.FindAnyWidget("Title"));
-		m_wTraderName.SetText(m_TraderConfigData.GetTraderName());
-				
-		m_wTabContent = VerticalLayoutWidget.Cast(m_wLayoutRoot.FindAnyWidget("TabViewRoot"));
-		if (!m_wTabContent)
-			return;
-		
-		m_TabViewComponent = SCR_TabViewComponent.Cast(m_wTabContent.FindHandler(SCR_TabViewComponent));
-		SCR_TabViewContent activeTab = m_TabViewComponent.GetShownTabComponent();
-		if (activeTab)
-		{
-			CreateItemUIElements(m_TabViewComponent, activeTab.m_wTab);
-		}
-		
-		//m_TabViewComponent.m_OnContentCreate.Insert(CreateItemUIElements);
-		m_TabViewComponent.m_OnContentShow.Insert(CreateItemUIElements);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -105,7 +86,7 @@ class EL_TraderMenuUI: ChimeraMenuBase
 			GridSlot.SetPadding(itemElement.GetRootWidget(), 4.0 , 5.0, 0.0, 0.0);
 			
 			column++;
-			if (column >= S_TILES_GRID_WIDTH)
+			if (column >= TILES_GRID_WIDTH)
 			{
 				column = 0;
 				line += 1;
@@ -120,7 +101,7 @@ class EL_TraderMenuUI: ChimeraMenuBase
 			m_wLayoutRoot = GetRootWidget();
 		
 		//! For testing only. Need to be handled by the trader entity component later
-		SetTraderConfig("{B443D5321B09D546}Configs/Traders/EL_AppleTraderConfig.conf");
+		//SetTraderConfig("{B443D5321B09D546}Configs/Traders/EL_AppleTraderConfig.conf");
 		
 		GetTraderInfoFromConfig();
 	}
@@ -128,7 +109,41 @@ class EL_TraderMenuUI: ChimeraMenuBase
 	//------------------------------------------------------------------------------------------------
 	void SetTraderConfig(ResourceName traderConfig)
 	{
-		m_TraderConfigResource = traderConfig
+		m_TraderConfigResource = traderConfig;
+		
+		Init();
+		
+		if (!m_TraderConfigData)
+			return;
+		
+		m_wTraderName = TextWidget.Cast(m_wLayoutRoot.FindAnyWidget("Title"));
+		m_wTraderName.SetText(m_TraderConfigData.GetTraderName());
+
+		m_wPagesText = RichTextWidget.Cast(m_wLayoutRoot.FindAnyWidget("PagesText"));
+		
+		m_wTabContent = VerticalLayoutWidget.Cast(m_wLayoutRoot.FindAnyWidget("TabViewRoot"));
+		if (!m_wTabContent)
+			return;
+		
+		m_TabViewComponent = SCR_TabViewComponent.Cast(m_wTabContent.FindHandler(SCR_TabViewComponent));
+		SCR_TabViewContent activeTab = m_TabViewComponent.GetShownTabComponent();
+		if (activeTab)
+		{
+			CreateItemUIElements(m_TabViewComponent, activeTab.m_wTab);
+		}
+		
+		//m_TabViewComponent.m_OnContentCreate.Insert(CreateItemUIElements);
+		m_TabViewComponent.m_OnContentShow.Insert(CreateItemUIElements);
+		
+		int pageCount = m_aTraderItemUIElements.Count() / MAX_ITEMS_PER_PAGE;
+		if (pageCount > 1)
+		{
+			m_wPagesText.SetText(string.Format("%1/%2", 1, pageCount));
+		}
+		else
+		{
+			m_wPagesText.SetText(string.Format("%1/%2", 1, 1));
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------

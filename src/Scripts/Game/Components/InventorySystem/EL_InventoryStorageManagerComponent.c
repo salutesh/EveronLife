@@ -1,4 +1,4 @@
-modded class SCR_InventoryStorageManagerComponent
+/*modded class SCR_InventoryStorageManagerComponent
 {
 	override void InsertItem( IEntity pItem, BaseInventoryStorageComponent pStorageTo = null, BaseInventoryStorageComponent pStorageFrom = null, SCR_InvCallBack cb = null  )
 	{
@@ -47,4 +47,4 @@ modded class SCR_InvCallBack
 	{
 		this.OnFailed();
 	}
-};
+};*/
