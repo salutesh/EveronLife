@@ -28,7 +28,6 @@ class EL_TraderInfoList
 	[Attribute(desc: "Trader item list of the items this trader will buy from players.")]
 	private ref array<ref EL_TraderItemInfo> m_TraderItemBuyList;
 
-	
 	string GetTraderName()
 	{
 		return m_TraderName;

@@ -52,7 +52,7 @@ class EL_NetworkComponent : ScriptComponent
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_ELOnOpenTraderMenu(ResourceName resourceName)
 	{
-		EL_TraderMenuUI traderMenu = EL_TraderMenuUI.Cast(GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.ELTraderMenu, 0, true, true));
+		EL_TraderMenuUI traderMenu = EL_TraderMenuUI.Cast(GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.EL_TraderMenu, 0, true, true));
 		if (!traderMenu)
 			return;
 		

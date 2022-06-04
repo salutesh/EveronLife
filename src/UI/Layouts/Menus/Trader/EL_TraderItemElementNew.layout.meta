@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{EA9D038CEDA914A1}UI/Layouts/Menus/Trader/EL_TraderItemElementNew.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

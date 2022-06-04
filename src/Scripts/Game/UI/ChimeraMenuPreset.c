@@ -1,4 +1,4 @@
 modded enum ChimeraMenuPreset
 {
-    ELTraderMenu
+    EL_TraderMenu
 }

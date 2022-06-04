@@ -1,0 +1,142 @@
+OverlayWidgetClass {
+ Name "EL_TraderItemElement"
+ Slot FrameWidgetSlot "{59869DF0D3AFF247}" {
+  PositionX 0
+  OffsetLeft 0
+  PositionY 0
+  OffsetTop 0
+  SizeX 500
+  OffsetRight -500
+  SizeY 60
+  OffsetBottom -60
+ }
+ Color 1 1 1 0
+ {
+  ButtonWidgetClass "{5988FD4950129C4B}" {
+   Name "Button0"
+   Slot OverlayWidgetSlot "{59886E9F7D19DC11}" {
+    HorizontalAlign 3
+    VerticalAlign 3
+   }
+   "Inherit Color" 1
+   components {
+    SCR_ButtonBaseComponent "{59886E9F19B65B2F}" {
+    }
+   }
+   {
+    OverlayWidgetClass "{5988FD4950129C75}" {
+     Name "Overlay0"
+     Slot ButtonWidgetSlot "{59886E9F6AB8F38F}" {
+     }
+     {
+      ImageWidgetClass "{5988FD4950129C76}" {
+       Name "Background"
+       Slot OverlayWidgetSlot "{59886E97CC14F49D}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+       }
+       Color 0 0 0 0.588
+       Pivot 0 0.5
+       Size 960 60
+      }
+      SizeLayoutWidgetClass "{5988FD4950129C77}" {
+       Name "SizeLayout0"
+       Slot OverlayWidgetSlot "{59886E87DCEEA38B}" {
+        HorizontalAlign 0
+        VerticalAlign 0
+        Padding 0 0 0 0
+       }
+       AllowWidthOverride 1
+       WidthOverride 60
+       AllowHeightOverride 1
+       HeightOverride 60
+       {
+        ItemPreviewWidgetClass "{5988FD4950129C70}" {
+         Name "ItemPreview"
+         Slot OverlayWidgetSlot "{59886E90A38D2343}" {
+          HorizontalAlign 3
+          VerticalAlign 3
+          Padding 0 0 0 0
+         }
+        }
+       }
+      }
+      ImageWidgetClass "{5988FD4950129C71}" {
+       Name "ItemIcon"
+       Slot OverlayWidgetSlot "{59886E979C69065D}" {
+        HorizontalAlign 0
+        Padding 10 0 0 0
+       }
+       "Is Enabled" 0
+       "Is Visible" 0
+       Texture "{BCAD9A06BDE86E1D}UI/qr_register_code_UI.edds"
+       Image ""
+       Size 32 32
+      }
+      RichTextWidgetClass "{5988FD4950129C72}" {
+       Name "ItemName"
+       Slot OverlayWidgetSlot "{59886E90A38D22B4}" {
+        HorizontalAlign 0
+        Padding 70 0 0 0
+       }
+       Text "Item Name"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Vertical Alignment" Center
+      }
+      PanelWidgetClass "{5988FD4950129C73}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{59886E919620ECCB}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       Color 0.761 0.386 0.078 1
+       style outline_2px
+      }
+      ButtonWidgetClass "{59896B0BED519DDC}" : "{1379ABFE611730C7}UI/Layouts/WidgetLibrary/SpinBox/WLib_QuantitySpin.layout" {
+       Name "PagesBox0"
+       Slot OverlayWidgetSlot "{59896B0BED519DC0}" {
+        Padding 4 4 4 4
+       }
+       {
+        SizeLayoutWidgetClass "{5989554F54A0B95B}" {
+         Prefab "{5989554F54A0B95B}"
+         AllowWidthOverride 1
+         WidthOverride 150
+         {
+          OverlayWidgetClass "{55367D8E531FD623}" {
+           Prefab "{55367D8E531FD623}"
+           {
+            ImageWidgetClass "{55367D8E48B5ED75}" {
+             Prefab "{55367D8E48B5ED75}"
+             "Is Enabled" 0
+             "Is Visible" 0
+            }
+            PanelWidgetClass "{55367D8E4A135500}" {
+             Prefab "{55367D8E4A135500}"
+             "Is Enabled" 0
+             "Is Visible" 0
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      RichTextWidgetClass "{5988FD4929927CC5}" {
+       Name "ItemPrice"
+       Slot OverlayWidgetSlot "{59886E90A38D22B4}" {
+        HorizontalAlign 2
+        Padding 0 0 70 0
+       }
+       Text "Item Price"
+       "Font Size" 16
+       "Min Font Size" 16
+       "Vertical Alignment" Center
+      }
+     }
+    }
+   }
+  }
+ }
+}

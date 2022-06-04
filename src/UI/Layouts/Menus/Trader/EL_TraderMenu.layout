@@ -494,10 +494,6 @@ FrameWidgetClass {
                m_sAction "Inventory_Select"
                m_sButtonID "ButtonSelect"
               }
-              NavigationButtonEntry "{56A2D8574D6B3423}" {
-               m_sAction "Inventory_Drop"
-               m_sButtonID "ButtonDrop"
-              }
              }
             }
            }
