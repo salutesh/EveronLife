@@ -13,6 +13,12 @@ Layer Spawnconfig {
 Layer AppleChain {
  Index 4
 }
-Layer TraderTest {
+Layer PlumChain {
  Index 3
+}
+Layer TomatoChain {
+ Index 6
+}
+Layer TraderTest {
+ Index 7
 }
