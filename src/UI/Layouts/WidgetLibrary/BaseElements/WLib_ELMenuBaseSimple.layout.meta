@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{4EA316DC4C200A4C}UI/layouts/WidgetLibrary/BaseElements/WLib_ELMenuBaseSimple.layout"
+ Configurations {
+  LayoutResourceClass PC {
+  }
+  LayoutResourceClass XBOX_ONE : PC {
+  }
+  LayoutResourceClass XBOX_SERIES : PC {
+  }
+  LayoutResourceClass PS4 : PC {
+  }
+  LayoutResourceClass HEADLESS : PC {
+  }
+ }
+}

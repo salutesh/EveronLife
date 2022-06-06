@@ -4,6 +4,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	protected EL_TraderMenuUI m_TraderMenu;
 	protected EL_TraderItemInfo m_ItemInfo;
 	protected ItemPreviewManagerEntity m_PreviewManager;
+	protected ResourceName m_ItemResourceName;
 	
 	protected Widget m_wRoot;
 	protected RichTextWidget m_wItemName;
@@ -23,7 +24,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	protected SCR_ButtonBaseComponent m_ItemButton;
 	
 	protected int m_Quantity = 0;
-	protected const int MAX_QUANTITY = 99;
+	protected int m_QuantityMax = 99;
 	protected bool m_bSHIFT = false;
 	protected const int SHIFT_QUANTITY = 10;
 	
@@ -32,20 +33,27 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	{
 		m_TraderMenu = traderMenu;
 		m_ItemInfo = itemInfo;
+		
 		m_wRoot = GetGame().GetWorkspace().CreateWidgets("{EA9D038CEDA914A1}UI/Layouts/Menus/Trader/EL_TraderItemElementNew.layout", grid);
 		m_wRoot.AddHandler(this);
-		m_wRoot.SetEnabled(true);
 	}
 	
-	//------------------------------------------------------------------------------------------------	
+	//------------------------------------------------------------------------------------------------
 	void ~EL_TraderMenuUI_ItemElement()
 	{
 		if (m_pItemInfo && m_bItemInfoVisable)
 			HideItemInfo();
 	}
 	
+	//------------------------------------------------------------------------------------------------
+	void Destroy()
+	{
+		m_wRoot.RemoveHandler(this);
+		m_wRoot.RemoveFromHierarchy();
+	}
+	
 	//------------------------------------------------------------------------------
-	override void HandlerAttached(Widget w)
+	protected override void HandlerAttached(Widget w)
 	{
 		m_wItemName = RichTextWidget.Cast(m_wRoot.FindAnyWidget("ItemName"));
 		m_wItemPreview = ItemPreviewWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
@@ -76,7 +84,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SetElement()
+	protected void SetElement()
 	{
 		if (!m_ItemInfo) 
 			return;
@@ -97,7 +105,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 			return;
 		
 		m_wItemName.SetText(m_ItemUIInfo.GetName());
-		m_wQuantityText.SetText(string.Format("%1/%2", m_Quantity, MAX_QUANTITY));
+		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -107,16 +115,19 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SetPreviewedItem(notnull IEntity previewItem)
+	protected void SetPreviewedItem(notnull IEntity previewItem)
 	{
 		m_PreviewManager = GetGame().GetItemPreviewManager();
-
+		m_ItemResourceName = previewItem.GetPrefabData().GetPrefabName();
+		
 		if (!m_PreviewManager)
 		{
 			Resource res = Resource.Load(m_ItemPreviewManagerPrefab);
-			if (res.IsValid())
-				GetGame().SpawnEntityPrefabLocal(res);
+			if (!res.IsValid())
+				return;
 			
+			GetGame().SpawnEntityPrefabLocal(res);
+						
 			m_PreviewManager = GetGame().GetItemPreviewManager();
 			if (!m_PreviewManager)
 				return;
@@ -131,7 +142,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void ShowItemInfo(string sName = "", string sDescr = "", float sWeight = 0.0)
+	protected void ShowItemInfo(string sName = "", string sDescr = "", float sWeight = 0.0)
 	{
 		if (!m_pItemInfo)
 		{
@@ -180,7 +191,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void HideItemInfo()
+	protected void HideItemInfo()
 	{
 		if (!m_pItemInfo)
 			return;
@@ -190,43 +201,43 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void OnItemButtonClicked(SCR_ButtonBaseComponent buttonComponent)
+	protected void OnItemButtonClicked(SCR_ButtonBaseComponent buttonComponent)
 	{
 		m_TraderMenu.SetSelectedItem(m_ItemInfo);
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void OnAddQuantityButtonClicked()
+	protected void OnAddQuantityButtonClicked()
 	{
-		if (m_Quantity < MAX_QUANTITY && !m_bSHIFT)
+		if (m_Quantity < m_QuantityMax && !m_bSHIFT)
 		{
 			m_Quantity++;
 		}
-		else if (m_Quantity + SHIFT_QUANTITY < MAX_QUANTITY && m_bSHIFT)
+		else if (m_Quantity + SHIFT_QUANTITY < m_QuantityMax && m_bSHIFT)
 		{
 			m_Quantity += 10;
 		}
 		
-		m_wQuantityText.SetText(string.Format("%1/%2", m_Quantity, MAX_QUANTITY));
+		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void OnRemoveQuantityButtonClicked()
+	protected void OnRemoveQuantityButtonClicked()
 	{
 		if (m_Quantity > 0 && !m_bSHIFT)
 		{
 			m_Quantity--;
 		}
-		else if (m_Quantity - SHIFT_QUANTITY < MAX_QUANTITY && m_bSHIFT)
+		else if (m_Quantity - SHIFT_QUANTITY < m_QuantityMax && m_bSHIFT)
 		{
 			m_Quantity -= 10;
 		}
 		
-		m_wQuantityText.SetText(string.Format("%1/%2", m_Quantity, MAX_QUANTITY));
+		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
 	}
 
 	//------------------------------------------------------------------------------------------------
-	override bool OnMouseEnter(Widget w, int x, int y)
+	protected override bool OnMouseEnter(Widget w, int x, int y)
 	{
 		super.OnMouseEnter(w, x, y);
 		
@@ -237,7 +248,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
+	protected override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
 	{
 		super.OnMouseLeave(w, enterW, x, y);
 		
@@ -248,28 +259,30 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override bool OnKeyPress(Widget w, int x, int y, int key) 
+	ResourceName GetItemResourceName()
 	{
-		super.OnKeyPress(w, x, y, key);
-		
-		Print(ToString() + "::OnKeyPress - Key: " + key);
-		
-		if (key == KeyCode.KC_LSHIFT)
-			m_bSHIFT = true;	
-		
-		return true;
+		return m_ItemResourceName;
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override bool OnKeyUp(Widget w, int x, int y, int key) 
+	void SetQuantityMax(int max)
 	{
-		super.OnKeyUp(w, x, y, key);
+		m_QuantityMax = max;
 		
-		Print(ToString() + "::OnKeyUp - Key: " + key);
+		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SetQuantity(int quantity)
+	{
+		m_Quantity = quantity;
 		
-		if (key == KeyCode.KC_LSHIFT)
-			m_bSHIFT = false;	
-		
-		return true;
+		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	int GetQuantity()
+	{
+		return m_Quantity;
 	}
 };

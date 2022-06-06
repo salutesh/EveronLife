@@ -1,8 +1,8 @@
-FrameWidgetClass {
+FrameWidgetClass "{598C87EF4A1DC3E1}" {
  Name "InventoryRoot"
  "Ignore Cursor" 0
  {
-  BlurWidgetClass "{5988A8FBF0C281B1}" {
+  BlurWidgetClass "{598C87EF4A1DC3E7}" {
    Name "Blur0"
    Slot FrameWidgetSlot "{5988A8FBF0C281D8}" {
     OffsetLeft 0
@@ -13,7 +13,7 @@ FrameWidgetClass {
     OffsetBottom -1080
    }
   }
-  ImageWidgetClass "{5988C9B78CF0670F}" {
+  ImageWidgetClass "{598C87EF4A1DC3E4}" {
    Name "Image0"
    Slot FrameWidgetSlot "{5988C9B78CF06755}" {
     PositionX 0
@@ -28,98 +28,53 @@ FrameWidgetClass {
    Color 0 0 0 0.553
    Size 1920 1080
   }
-  FrameWidgetClass "{59869DFD92B45574}" {
-   Name "DragnDropFrame"
-   Slot FrameWidgetSlot "{5645426F032126C2}" {
-    Anchor 0 0 1 1
-    PositionX -7.54
-    OffsetLeft -7.54
-    PositionY 3.839
-    OffsetTop 3.839
-    SizeX 0
-    OffsetRight 7.54
-    SizeY 0.003
-    OffsetBottom -3.842
-   }
-   "Z Order" 2
-   {
-    FrameWidgetClass "{59869DFD92B45577}" {
-     Name "DragDropContainer"
-     Slot FrameWidgetSlot "{5645209D7C307C46}" {
-      OffsetLeft 0
-      OffsetTop 0
-      OffsetRight -100
-      SizeY 100
-      OffsetBottom -100
-     }
-     "Z Order" 99
-     components {
-      SCR_SlotUIComponent "{564532AE1CD634E4}" {
-       PositionX 300
-       PositionY 300
-       SizeX 100
-       SizeY 100
-      }
-     }
-     {
-      ItemPreviewWidgetClass "{59869DFD92B45576}" {
-       Name "item"
-       Slot FrameWidgetSlot "{564532AA08C50BFD}" {
-        OffsetLeft 0
-        OffsetTop 0
-        OffsetRight -100
-        SizeY 100
-        OffsetBottom -100
-       }
-       "Z Order" 99
-       Format "HDR High"
-       "Use clear color" 1
-       "Blend mode" Blend
-      }
-     }
-    }
-   }
-  }
-  OverlayWidgetClass "{598C87EF785ACE07}" : "{4EA316DC4C200A4C}UI/Layouts/WidgetLibrary/BaseElements/WLib_ELMenuBaseSimple.layout" {
+  OverlayWidgetClass "{598C87EF4A1DC3E5}" : "{BBD087BFC198428A}UI/layouts/WidgetLibrary/BaseElements/WLib_MenuBaseSimple.layout" {
    Name "InventoryMenuBase"
    Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY -2.203
+    OffsetTop -2.203
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 2.203
    }
    {
-    SizeLayoutWidgetClass "{598C87EF8B9599C7}" {
-     Prefab "{598C87EF8B9599C7}"
+    SizeLayoutWidgetClass "{589F049780D13CA5}" {
+     Prefab "{589F049780D13CA5}"
      {
-      VerticalLayoutWidgetClass "{598C87EF8B9599C1}" {
-       Prefab "{598C87EF8B9599C1}"
+      VerticalLayoutWidgetClass "{589F049780D13CA3}" {
+       Prefab "{589F049780D13CA3}"
        {
-        SizeLayoutWidgetClass "{598C87EF8B9599C2}" {
-         Prefab "{598C87EF8B9599C2}"
-         "Is Enabled" 1
-         "Is Visible" 1
+        SizeLayoutWidgetClass "{589F049780D13CA2}" {
+         Prefab "{589F049780D13CA2}"
+         HeightOverride 56
          {
-          OverlayWidgetClass "{598C87EF8B955CA9}" {
-           Prefab "{598C87EF8B955CA9}"
+          OverlayWidgetClass "{589F1BFADB1DDB0A}" {
+           Prefab "{589F1BFADB1DDB0A}"
            {
-            HorizontalLayoutWidgetClass "{598C87EE83A434C0}" {
+            HorizontalLayoutWidgetClass "{598C87EF4A1DC3EB}" {
              Name "HorizontalLayout0"
              Slot OverlayWidgetSlot "{593872AE847A1BEB}" {
               HorizontalAlign 3
               VerticalAlign 3
              }
              {
-              HorizontalLayoutWidgetClass "{598C87EE83A434C6}" {
+              HorizontalLayoutWidgetClass "{598C87EF4A1DC3E8}" {
                Name "HorizontalLayout1"
                Slot LayoutSlot "{591A71E17ECC7FA7}" {
                 Padding 0 0 0 0
                 SizeMode Fill
                }
                {
-                OverlayWidgetClass "{598C87EE83A434C4}" {
+                OverlayWidgetClass "{598C87EF4A1DC3E9}" {
                  Prefab "{589F1BFADB1DDB0A}"
                  Name "Overlay"
                 }
                }
               }
-              HorizontalLayoutWidgetClass "{598C87EE83A79A2C}" {
+              HorizontalLayoutWidgetClass "{598C87EF4A1DC3EE}" {
                Name "HorizontalLayout0"
                Slot LayoutSlot "{591A71E17ECC7FA7}" {
                 Padding 0 0 0 0
@@ -127,14 +82,14 @@ FrameWidgetClass {
                }
                "Fill Origin" Right
                {
-                HorizontalLayoutWidgetClass "{598C87EE83A79A23}" {
+                HorizontalLayoutWidgetClass "{598C87EF4A1DC3EF}" {
                  Name "TotalWeightDisplay"
                  Slot LayoutSlot "{5915002BED056598}" {
                   HorizontalAlign 0
                   Padding 0 0 0 0
                  }
                  {
-                  ImageWidgetClass "{598C87EE83A79A20}" {
+                  ImageWidgetClass "{598C87EF4A1DC3EC}" {
                    Name "Image0"
                    Slot LayoutSlot "{5915002B4B82D872}" {
                     HorizontalAlign 1
@@ -145,7 +100,7 @@ FrameWidgetClass {
                    Image ""
                    Size 24 24
                   }
-                  TextWidgetClass "{598C87EE83A79A26}" : "{3132F64DB8B4CB44}UI/layouts/WidgetLibrary/TextWidgets/Text_Body.layout" {
+                  TextWidgetClass "{598C87EF4A1DC3F2}" : "{3132F64DB8B4CB44}UI/layouts/WidgetLibrary/TextWidgets/Text_Body.layout" {
                    Name "TotalWeightText"
                    Slot LayoutSlot "{591A48FB3922356A}" {
                     Padding 6 0 10 0
@@ -159,14 +114,19 @@ FrameWidgetClass {
               }
              }
             }
+            TextWidgetClass "{589F049780D13CAD}" {
+             Prefab "{589F049780D13CAD}"
+             "Is Enabled" 0
+             "Is Visible" 0
+            }
            }
           }
          }
         }
-        OverlayWidgetClass "{598C87EF8B955CA6}" {
-         Prefab "{598C87EF8B955CA6}"
+        OverlayWidgetClass "{589F0497F7A00346}" {
+         Prefab "{589F0497F7A00346}"
          {
-          HorizontalLayoutWidgetClass "{598C87EEACF347EC}" {
+          HorizontalLayoutWidgetClass "{598C87EF4A1DC3F3}" {
            Name "InventoryContent"
            Slot OverlayWidgetSlot "{58E0C2B3E4BC9ACA}" {
             HorizontalAlign 3
@@ -174,21 +134,21 @@ FrameWidgetClass {
            }
            "Z Order" 1
            {
-            VerticalLayoutWidgetClass "{598C87EEACF347ED}" {
+            VerticalLayoutWidgetClass "{598C87EF4A1DC3F0}" {
              Name "LeftMiddle"
              Slot LayoutSlot "{58B105F76C8A2663}" {
               SizeMode Fill
               FillWeight 1
              }
              {
-              HorizontalLayoutWidgetClass "{598C87EEACF347E2}" {
+              HorizontalLayoutWidgetClass "{598C87EF4A1DC3F1}" {
                Name "LeftMiddleHorizontal"
                Slot LayoutSlot "{58B105EE51990B35}" {
                 SizeMode Fill
                 FillWeight 0.7
                }
                {
-                VerticalLayoutWidgetClass "{598C87EEACF347E3}" {
+                VerticalLayoutWidgetClass "{598C87EF4A1DC3F6}" {
                  Name "LeftArea"
                  Slot LayoutSlot "{51F6DADB91D582C2}" {
                   SizeMode Fill
@@ -198,7 +158,7 @@ FrameWidgetClass {
                  "Right rule" Explicit
                  "Right target" "MiddleArea"
                  {
-                  SizeLayoutWidgetClass "{598C87EEACF347E0}" {
+                  SizeLayoutWidgetClass "{598C87EF4A1DC3F7}" {
                    Name "StorageLootSlot"
                    Slot LayoutSlot "{566928DF01BBAF54}" {
                     Padding 0 0 0 0
@@ -209,7 +169,7 @@ FrameWidgetClass {
                    "Right target" "StoragesListSlot"
                    AspectRatioForce 1
                   }
-                  FrameWidgetClass "{598C87EEACF347E1}" {
+                  FrameWidgetClass "{598C87EF4A1DC3F4}" {
                    Name "bottom3"
                    Slot LayoutSlot "{567304766BA6AA87}" {
                     SizeMode Fill
@@ -219,7 +179,7 @@ FrameWidgetClass {
                   }
                  }
                 }
-                OverlayWidgetClass "{598C87EEACF347E6}" {
+                OverlayWidgetClass "{598C87EF4A1DC3F5}" {
                  Name "MiddleArea"
                  Slot LayoutSlot "{51D090E952815267}" {
                   SizeMode Fill
@@ -230,21 +190,21 @@ FrameWidgetClass {
                  "Right rule" Explicit
                  "Right target" "StorageGrid"
                  {
-                  FrameWidgetClass "{598C87EEACF347E7}" {
+                  FrameWidgetClass "{598C87EF4A1DC3FA}" {
                    Name "Frame1"
                    Slot OverlayWidgetSlot "{566AEBF1EB1FDCEA}" {
                     HorizontalAlign 3
                     VerticalAlign 3
                    }
                   }
-                  OverlayWidgetClass "{598C87EEACF331AD}" {
+                  OverlayWidgetClass "{598C87EF4A1DC3FB}" {
                    Name "SoldierArea"
                    Slot OverlayWidgetSlot "{569A8072644AA979}" {
                     HorizontalAlign 3
                     VerticalAlign 3
                    }
                    {
-                    ItemPreviewWidgetClass "{598C87EEACF331AE}" {
+                    ItemPreviewWidgetClass "{598C87EF4A1DC3F8}" {
                      Name "playerRender"
                      Slot OverlayWidgetSlot "{58B105F14C7CD836}" {
                       HorizontalAlign 3
@@ -259,28 +219,28 @@ FrameWidgetClass {
                      "Clear Color" 0 0 0 1
                      "Blend mode" Blend
                     }
-                    OverlayWidgetClass "{598C87EEACF331AF}" {
+                    OverlayWidgetClass "{598C87EF4A1DC3F9}" {
                      Name "overlay"
                      Slot OverlayWidgetSlot "{58B105CEBD700307}" {
                       HorizontalAlign 3
                       VerticalAlign 3
                      }
                      {
-                      VerticalLayoutWidgetClass "{598C87EEACF331B0}" {
+                      VerticalLayoutWidgetClass "{598C87EF4A1DC3FE}" {
                        Name "StorageListArea"
                        Slot OverlayWidgetSlot "{58B105F1C160147B}" {
                         HorizontalAlign 3
                         VerticalAlign 3
                        }
                        {
-                        HorizontalLayoutWidgetClass "{598C87EEACF331B1}" {
+                        HorizontalLayoutWidgetClass "{598C87EF4A1DC3FF}" {
                          Name "HorizontalLayout0"
                          Slot LayoutSlot "{5660FB8B9882C9BA}" {
                           SizeMode Fill
                           FillWeight 1
                          }
                          {
-                          FrameWidgetClass "{598C87EEACF331B2}" {
+                          FrameWidgetClass "{598C87EF4A1DC3FC}" {
                            Name "padding"
                            Slot LayoutSlot "{51DF02514B8D5A49}" {
                             SizeMode Fill
@@ -291,7 +251,7 @@ FrameWidgetClass {
                            "Up rule" Wrap
                            "Down rule" Wrap
                            {
-                            VerticalLayoutWidgetClass "{598C87EEACF331B3}" {
+                            VerticalLayoutWidgetClass "{598C87EF4A1DC3FD}" {
                              Name "VerticalLayout0"
                              Slot FrameWidgetSlot "{56A4EC9286A5A66C}" {
                               Anchor 0 0 1 1
@@ -305,7 +265,7 @@ FrameWidgetClass {
                               OffsetBottom 0
                              }
                              {
-                              OverlayWidgetClass "{598C87EEACF331B4}" {
+                              OverlayWidgetClass "{598C87EF4A1DC382}" {
                                Name "top"
                                Slot LayoutSlot "{56A4EC92125AFC1F}" {
                                 Padding 0 64 0 0
@@ -313,14 +273,14 @@ FrameWidgetClass {
                                 FillWeight 0.65
                                }
                                {
-                                OverlayWidgetClass "{598C87EEACF331B5}" {
+                                OverlayWidgetClass "{598C87EF4A1DC383}" {
                                  Name "dbgMidTop"
                                  Slot OverlayWidgetSlot "{56A88C025FEF6678}" {
                                  }
                                  "Is Visible" 0
                                  Opacity 0.025
                                  {
-                                  ImageWidgetClass "{598C87EEACF331B6}" {
+                                  ImageWidgetClass "{598C87EF4A1DC380}" {
                                    Name "Image0"
                                    Slot OverlayWidgetSlot "{56A8634E6BA64458}" {
                                     HorizontalAlign 3
@@ -332,21 +292,21 @@ FrameWidgetClass {
                                 }
                                }
                               }
-                              OverlayWidgetClass "{598C87EEACF331B7}" {
+                              OverlayWidgetClass "{598C87EF4A1DC381}" {
                                Name "mid"
                                Slot LayoutSlot "{56A8634230B6AFAA}" {
                                 SizeMode Fill
                                 FillWeight 0.15
                                }
                                {
-                                FrameWidgetClass "{598C87EEACF3C0EE}" {
+                                FrameWidgetClass "{598C87EF4A1DC386}" {
                                  Name "Frame0"
                                  Slot OverlayWidgetSlot "{56A89726792C4F1F}" {
                                  }
                                  "Is Enabled" 0
                                  "Is Visible" 0
                                  {
-                                  OverlayWidgetClass "{598C87EEACF3C0E1}" {
+                                  OverlayWidgetClass "{598C87EF4A1DC387}" {
                                    Name "QuickSlots2"
                                    Slot FrameWidgetSlot "{56A891D71D0CF4EA}" {
                                     Anchor 0 0 1 1
@@ -365,7 +325,7 @@ FrameWidgetClass {
                                    "Up target" "StoragesListSlot"
                                    "Down rule" Stop
                                   }
-                                  OverlayWidgetClass "{598C87EEACF3C0E0}" {
+                                  OverlayWidgetClass "{598C87EF4A1DC384}" {
                                    Name "dbgMidMid"
                                    Slot FrameWidgetSlot "{56A891D46A700AC6}" {
                                     OffsetLeft 0
@@ -378,7 +338,7 @@ FrameWidgetClass {
                                    "Is Enabled" 0
                                    Opacity 0.025
                                    {
-                                    ImageWidgetClass "{598C87EEACF3C0E3}" {
+                                    ImageWidgetClass "{598C87EF4A1DC385}" {
                                      Name "Image0"
                                      Slot OverlayWidgetSlot "{56A8634E6BA64458}" {
                                       HorizontalAlign 3
@@ -394,7 +354,7 @@ FrameWidgetClass {
                                 }
                                }
                               }
-                              FrameWidgetClass "{598C87EEACF3C0E2}" {
+                              FrameWidgetClass "{598C87EF4A1DC38A}" {
                                Name "bottom2"
                                Slot LayoutSlot "{56A4EC9286B7FB41}" {
                                 SizeMode Fill
@@ -405,7 +365,7 @@ FrameWidgetClass {
                             }
                            }
                           }
-                          FrameWidgetClass "{598C87EEACF3C0E5}" {
+                          FrameWidgetClass "{598C87EF4A1DC38B}" {
                            Name "StorageListScale"
                            Slot LayoutSlot "{5668C779FA4BA3E0}" {
                             VerticalAlign 0
@@ -413,7 +373,7 @@ FrameWidgetClass {
                             FillWeight 0.1
                            }
                            {
-                            VerticalLayoutWidgetClass "{598C87EEACF3C0E4}" {
+                            VerticalLayoutWidgetClass "{598C87EF4A1DC388}" {
                              Name "VerticalLayout0"
                              Slot FrameWidgetSlot "{566AF42D3943D71D}" {
                               Anchor 0 0 1 1
@@ -429,7 +389,7 @@ FrameWidgetClass {
                              "Is Enabled" 0
                              "Is Visible" 0
                              {
-                              WrapLayoutWidgetClass "{598C87EEACF3C0E7}" {
+                              WrapLayoutWidgetClass "{598C87EF4A1DC389}" {
                                Name "WrapLayoutShow"
                                Slot LayoutSlot "{56713DF66ABE5D5D}" {
                                 HorizontalAlign 1
@@ -440,7 +400,7 @@ FrameWidgetClass {
                                "Is Enabled" 0
                                "Is Visible" 0
                                {
-                                SizeLayoutWidgetClass "{598C87EEACF3C0E6}" : "{F437ACE2BD5F11E1}UI/layouts/Menus/Inventory/InventoryItemSlot.layout" {
+                                SizeLayoutWidgetClass "{598C87EF4A1DC38E}" : "{F437ACE2BD5F11E1}UI/layouts/Menus/Inventory/InventoryItemSlot.layout" {
                                  Name "playerRenderSmallRoot"
                                  Slot WrapLayoutWidgetSlot "{56713DF66A78C5C8}" {
                                  }
@@ -485,7 +445,7 @@ FrameWidgetClass {
                               }
                              }
                             }
-                            VerticalLayoutWidgetClass "{598C87EEACF3C0DF}" {
+                            VerticalLayoutWidgetClass "{598C87EF4A1DC391}" {
                              Name "StoragesListSlot"
                              Slot FrameWidgetSlot "{58B105CCAC93EA08}" {
                               Anchor 0 0 0 0
@@ -506,7 +466,7 @@ FrameWidgetClass {
                             }
                            }
                           }
-                          FrameWidgetClass "{598C87EEACF3C0DE}" {
+                          FrameWidgetClass "{598C87EF4A1DC396}" {
                            Name "padding0"
                            Slot LayoutSlot "{51DF02514B8D5A49}" {
                             SizeMode Fill
@@ -525,7 +485,7 @@ FrameWidgetClass {
                       }
                      }
                     }
-                    VerticalLayoutWidgetClass "{598C87EEACF3C0D1}" {
+                    VerticalLayoutWidgetClass "{598C87EF4A1DC397}" {
                      Name "VerticalLayout0"
                      Slot OverlayWidgetSlot "{56A4EC91CF92AED1}" {
                       HorizontalAlign 3
@@ -534,7 +494,7 @@ FrameWidgetClass {
                      "Is Enabled" 0
                      "Is Visible" 0
                      {
-                      HorizontalLayoutWidgetClass "{598C87EEACF3C0D0}" {
+                      HorizontalLayoutWidgetClass "{598C87EF4A1DC394}" {
                        Name "HorizontalLayout0"
                        Slot LayoutSlot "{56A4EC91CFE7C363}" {
                         Padding 0 16 0 0
@@ -544,7 +504,7 @@ FrameWidgetClass {
                        "Is Enabled" 0
                        "Is Visible" 0
                       }
-                      FrameWidgetClass "{598C87EEACF3C0D3}" {
+                      FrameWidgetClass "{598C87EF4A1DC395}" {
                        Name "bottom"
                        Slot LayoutSlot "{567304766BA6AA87}" {
                         SizeMode Fill
@@ -555,7 +515,7 @@ FrameWidgetClass {
                       }
                      }
                     }
-                    OverlayWidgetClass "{598C87EEACF3C0D2}" {
+                    OverlayWidgetClass "{598C87EF4A1DC39A}" {
                      Name "infoStamina"
                      Slot OverlayWidgetSlot "{569AEA29540FF85D}" {
                       HorizontalAlign 3
@@ -566,14 +526,14 @@ FrameWidgetClass {
                      "Is Visible" 0
                      Opacity 0.138
                      {
-                      FrameWidgetClass "{598C87EEACF3C0D5}" {
+                      FrameWidgetClass "{598C87EF4A1DC39B}" {
                        Name "Frame0"
                        Slot OverlayWidgetSlot "{569B3ECC249D8FF7}" {
                         HorizontalAlign 0
                         VerticalAlign 0
                        }
                        {
-                        ProgressBarWidgetClass "{598C87EEACF3CFDD}" {
+                        ProgressBarWidgetClass "{598C87EF4A1DC398}" {
                          Name "ProgressBar0"
                          Slot FrameWidgetSlot "{569B3ECC2BB4E2FB}" {
                           OffsetLeft 0
@@ -590,7 +550,7 @@ FrameWidgetClass {
                       }
                      }
                     }
-                    OverlayWidgetClass "{598C87EEACF3CFDC}" {
+                    OverlayWidgetClass "{598C87EF4A1DC399}" {
                      Name "infoBleeding"
                      Slot OverlayWidgetSlot "{569AEA29540FF85D}" {
                       HorizontalAlign 2
@@ -599,7 +559,7 @@ FrameWidgetClass {
                      }
                      "Is Visible" 0
                      {
-                      ImageWidgetClass "{598C87EEACF3CFDF}" {
+                      ImageWidgetClass "{598C87EF4A1DC39E}" {
                        Name "Image0"
                        Slot OverlayWidgetSlot "{569AEA2BD7154515}" {
                         HorizontalAlign 2
@@ -615,7 +575,7 @@ FrameWidgetClass {
                        "Mask Mode" "Include Below"
                        Range 1
                       }
-                      TextWidgetClass "{598C87EEACF3CFC1}" {
+                      TextWidgetClass "{598C87EF4A1DC39F}" {
                        Name "charFeatureHealth"
                        Slot OverlayWidgetSlot "{569A8072508212D0}" {
                         HorizontalAlign 2
@@ -629,7 +589,7 @@ FrameWidgetClass {
                       }
                      }
                     }
-                    OverlayWidgetClass "{598C87EEACF3CFC0}" {
+                    OverlayWidgetClass "{598C87EF4A1DC39C}" {
                      Name "infoWounded"
                      Slot OverlayWidgetSlot "{569AEA29540FF85D}" {
                       HorizontalAlign 2
@@ -638,7 +598,7 @@ FrameWidgetClass {
                      }
                      "Is Visible" 0
                      {
-                      ImageWidgetClass "{598C87EEACF3CFC3}" {
+                      ImageWidgetClass "{598C87EF4A1DC39D}" {
                        Name "Image0"
                        Slot OverlayWidgetSlot "{569AEA2BD7154515}" {
                         HorizontalAlign 2
@@ -651,7 +611,7 @@ FrameWidgetClass {
                        Size 76 76
                        Range 1
                       }
-                      TextWidgetClass "{598C87EEACF3CFC2}" {
+                      TextWidgetClass "{598C87EF4A1DC3A2}" {
                        Name "charFeatureHealth"
                        Slot OverlayWidgetSlot "{569A8072508212D0}" {
                         HorizontalAlign 2
@@ -671,7 +631,7 @@ FrameWidgetClass {
                 }
                }
               }
-              SizeLayoutWidgetClass "{598C87EEACF3CFC5}" {
+              SizeLayoutWidgetClass "{598C87EF4A1DC3A3}" {
                Name "SizeLayout0"
                Slot LayoutSlot "{58E0C43597DAF0AC}" {
                 HorizontalAlign 0
@@ -680,7 +640,7 @@ FrameWidgetClass {
                AllowHeightOverride 1
                HeightOverride 80
                {
-                OverlayWidgetClass "{598C87EEACF3A0D6}" {
+                OverlayWidgetClass "{598C87EF4A1DC3A0}" {
                  Name "QuickSlots"
                  Slot LayoutSlot "{58E0C432270270D3}" {
                   HorizontalAlign 1
@@ -698,7 +658,7 @@ FrameWidgetClass {
               }
              }
             }
-            FrameWidgetClass "{598C87EEACF3A0D7}" {
+            FrameWidgetClass "{598C87EF4A1DC3A1}" {
              Name "Frame0"
              Slot LayoutSlot "{58B105F26C73E07B}" {
               SizeMode Fill
@@ -707,14 +667,14 @@ FrameWidgetClass {
              "Is Enabled" 0
              "Is Visible" 0
             }
-            OverlayWidgetClass "{598C87EEACF3A0D4}" {
+            OverlayWidgetClass "{598C87EF4A1DC3A6}" {
              Name "RightAreaOverlay"
              Slot LayoutSlot "{58C46C6434935D71}" {
               SizeMode Fill
               FillWeight 0.5
              }
              {
-              VerticalLayoutWidgetClass "{598C87EEACF3A0D5}" {
+              VerticalLayoutWidgetClass "{598C87EF4A1DC3A7}" {
                Name "RightArea"
                Slot OverlayWidgetSlot "{58C46C643484C5E0}" {
                 HorizontalAlign 3
@@ -723,7 +683,7 @@ FrameWidgetClass {
                "Left rule" Explicit
                "Left target" "StoragesListSlot"
                {
-                ScrollLayoutWidgetClass "{598C87EEACF3A0DA}" {
+                ScrollLayoutWidgetClass "{598C87EF4A1DC3A4}" {
                  Name "ScrollLayout0"
                  Slot LayoutSlot "{5676DB79D28A4A5E}" {
                   VerticalAlign 0
@@ -732,7 +692,7 @@ FrameWidgetClass {
                  Color 0.761 0.392 0.078 1
                  style Small
                  {
-                  GridLayoutWidgetClass "{598C87EEACF3A0DB}" {
+                  GridLayoutWidgetClass "{598C87EF4A1DC3A5}" {
                    Name "StorageGrid"
                    Slot LayoutSlot "{572354344AB54857}" {
                     VerticalAlign 0
@@ -747,7 +707,7 @@ FrameWidgetClass {
                   }
                  }
                 }
-                VerticalLayoutWidgetClass "{598C87EEACF3A0D8}" {
+                VerticalLayoutWidgetClass "{598C87EF4A1DC3AA}" {
                  Name "bottom"
                  Slot LayoutSlot "{567304766BA6AA87}" {
                   SizeMode Fill
@@ -756,14 +716,14 @@ FrameWidgetClass {
                  "Is Enabled" 0
                  "Is Visible" 0
                  {
-                  HorizontalLayoutWidgetClass "{598C87EEACF3A0D9}" {
+                  HorizontalLayoutWidgetClass "{598C87EF4A1DC3AB}" {
                    Name "HorizontalLayout0"
                    Slot LayoutSlot "{56A89726EB0F70D8}" {
                     SizeMode Fill
                     FillWeight 0.05
                    }
                    {
-                    ImageWidgetClass "{598C87EEACF3A0DE}" {
+                    ImageWidgetClass "{598C87EF4A1DC3A8}" {
                      Name "Image0"
                      Slot LayoutSlot "{56BA74A338B978F9}" {
                       VerticalAlign 0
@@ -773,7 +733,7 @@ FrameWidgetClass {
                      Opacity 0.119
                      Size 800 2
                     }
-                    FrameWidgetClass "{598C87EEACF21224}" {
+                    FrameWidgetClass "{598C87EF4A1DC3A9}" {
                      Name "Frame0"
                      Slot LayoutSlot "{56A89726DD75482D}" {
                       SizeMode Fill
@@ -782,35 +742,35 @@ FrameWidgetClass {
                     }
                    }
                   }
-                  OverlayWidgetClass "{598C87EEACF21225}" {
+                  OverlayWidgetClass "{598C87EF4A1DC3AE}" {
                    Name "padding"
                    Slot LayoutSlot "{56A89725554E0099}" {
                     SizeMode Fill
                     FillWeight 0.1
                    }
                   }
-                  OverlayWidgetClass "{598C87EEACF21226}" {
+                  OverlayWidgetClass "{598C87EF4A1DC3AF}" {
                    Name "summary"
                    Slot LayoutSlot "{56A8972537E1EA1D}" {
                     SizeMode Fill
                     FillWeight 0.899
                    }
                    {
-                    HorizontalLayoutWidgetClass "{598C87EEACF21227}" {
+                    HorizontalLayoutWidgetClass "{598C87EF4A1DC3AC}" {
                      Name "HorizontalLayout0"
                      Slot OverlayWidgetSlot "{56A897245A60D29E}" {
                       HorizontalAlign 3
                       VerticalAlign 0
                      }
                      {
-                      OverlayWidgetClass "{598C87EEACF21DD8}" {
+                      OverlayWidgetClass "{598C87EF4A1DC3AD}" {
                        Name "SummaryFrame"
                        Slot LayoutSlot "{56A897245A525492}" {
                         SizeMode Fill
                         FillWeight 0.95
                        }
                        {
-                        ImageWidgetClass "{598C87EEACF21DD9}" {
+                        ImageWidgetClass "{598C87EF4A1DC3B2}" {
                          Name "BackgroundR"
                          Slot OverlayWidgetSlot "{56BA74A338B97993}" {
                           HorizontalAlign 3
@@ -821,7 +781,7 @@ FrameWidgetClass {
                         }
                        }
                       }
-                      FrameWidgetClass "{598C87EEACF21DDA}" {
+                      FrameWidgetClass "{598C87EF4A1DC3B3}" {
                        Name "sidePadding"
                        Slot LayoutSlot "{56A8972440B68E8A}" {
                         SizeMode Fill
@@ -834,21 +794,21 @@ FrameWidgetClass {
                   }
                  }
                 }
-                OverlayWidgetClass "{598C87EEACF21DDB}" {
+                OverlayWidgetClass "{598C87EF4A1DC3B0}" {
                  Name "Frame0"
                  Slot LayoutSlot "{57235436BB407C26}" {
                  }
                  "Is Enabled" 0
                  "Is Visible" 0
                  {
-                  HorizontalLayoutWidgetClass "{598C87EEACF21DDC}" {
+                  HorizontalLayoutWidgetClass "{598C87EF4A1DC3B1}" {
                    Name "HorizontalLayout0"
                    Slot OverlayWidgetSlot "{56A4EC942346C929}" {
                     HorizontalAlign 3
                     VerticalAlign 3
                    }
                    {
-                    VerticalLayoutWidgetClass "{598C87EEACF21DDD}" {
+                    VerticalLayoutWidgetClass "{598C87EF4A1DC3B6}" {
                      Name "StorageGrid2"
                      Slot LayoutSlot "{56A4EC94193E87B2}" {
                       SizeMode Fill
@@ -859,7 +819,7 @@ FrameWidgetClass {
                      "Left rule" Explicit
                      "Left target" "StoragesListSlot"
                     }
-                    FrameWidgetClass "{598C87EEACF2D21A}" {
+                    FrameWidgetClass "{598C87EF4A1DC3B7}" {
                      Name "Frame0"
                      Slot LayoutSlot "{56A4EC940420CFAB}" {
                       SizeMode Fill
@@ -868,14 +828,14 @@ FrameWidgetClass {
                     }
                    }
                   }
-                  OverlayWidgetClass "{598C87EEACF2D219}" {
+                  OverlayWidgetClass "{598C87EF4A1DC3B4}" {
                    Name "dbgRightTop"
                    Slot OverlayWidgetSlot "{56A8634E6D201A20}" {
                    }
                    "Is Visible" 0
                    Opacity 0.025
                    {
-                    ImageWidgetClass "{598C87EEACF2D218}" {
+                    ImageWidgetClass "{598C87EF4A1DC3B5}" {
                      Name "Image0"
                      Slot OverlayWidgetSlot "{56A8634E6BA64458}" {
                       HorizontalAlign 3
@@ -889,7 +849,7 @@ FrameWidgetClass {
                 }
                }
               }
-              ButtonWidgetClass "{598C87EEACF2D217}" {
+              ButtonWidgetClass "{598C87EF4A1DC3BA}" {
                Name "RightAreaSelection"
                Slot OverlayWidgetSlot "{58C46C6432CDB3D7}" {
                 HorizontalAlign 3
@@ -901,14 +861,14 @@ FrameWidgetClass {
               }
              }
             }
-            VerticalLayoutWidgetClass "{598C87EEACF2D216}" {
+            VerticalLayoutWidgetClass "{598C87EF4A1DC3BB}" {
              Name "StorageGrid2"
              Slot LayoutSlot "{5674F49075B11FEA}" {
              }
              "Is Enabled" 0
              "Is Visible" 0
             }
-            SizeLayoutWidgetClass "{598C87EEACF2D215}" {
+            SizeLayoutWidgetClass "{598C87EF4A1DC3B8}" {
              Name "StorageGridSlot"
              Slot LayoutSlot "{56693E7609086524}" {
               Padding 0 64 0 0
@@ -919,7 +879,7 @@ FrameWidgetClass {
              "Is Visible" 0
              AspectRatioForce 0.5
             }
-            GridLayoutWidgetClass "{598C87EEACF2D214}" {
+            GridLayoutWidgetClass "{598C87EF4A1DC3B9}" {
              Name "StorageGridOld"
              Slot LayoutSlot "{56730BB107126940}" {
               SizeMode Fill
@@ -937,27 +897,27 @@ FrameWidgetClass {
           }
          }
         }
-        SizeLayoutWidgetClass "{598C87EF8B955CA4}" {
-         Prefab "{598C87EF8B955CA4}"
+        SizeLayoutWidgetClass "{589F0497E391441C}" {
+         Prefab "{589F0497E391441C}"
          {
-          HorizontalLayoutWidgetClass "{598C87EF8B954499}" {
-           Prefab "{598C87EF8B954499}"
+          HorizontalLayoutWidgetClass "{589F049780D13CD1}" {
+           Prefab "{589F049780D13CD1}"
            components {
-            SCR_NavigationBarUI "{598C87EE79AC9BFA}" {
+            SCR_NavigationBarUI "{58E0C2B35EF2421A}" {
              m_aEntries {
-              NavigationButtonEntry "{598C87EE7400D70F}" {
-               m_sAction "Trade_Sell"
-               m_sButtonID "ButtonSell"
-              }
-              NavigationButtonEntry "{598C87EE6ED9AFF2}" {
+              NavigationButtonEntry "{566A940FA23686D0}" {
                m_sAction "Inventory_Select"
                m_sButtonID "ButtonSelect"
               }
-              NavigationButtonEntry "{598C87EE1EEF57A1}" {
+              NavigationButtonEntry "{56A2D8574D6B3423}" {
+               m_sAction "Trade_Sell"
+               m_sButtonID "ButtonSell"
+              }
+              NavigationButtonEntry "{5892A50D67739A2E}" {
                m_sAction "Inventory_OpenStorage"
                m_sButtonID "ButtonOpenStorage"
               }
-              NavigationButtonEntry "{598C87EE16FEB531}" {
+              NavigationButtonEntry "{589E60523EB72B9E}" {
                m_sAction "Inventory_Move"
                m_sButtonID "ButtonMove"
               }
@@ -975,7 +935,59 @@ FrameWidgetClass {
     }
    }
   }
-  OverlayWidgetClass "{5988A215B1678EAF}" : "{6F1E013D3D33703D}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
+  FrameWidgetClass "{598C87EF4A1DC3BF}" {
+   Name "DragnDropFrame"
+   Slot FrameWidgetSlot "{5645426F032126C2}" {
+    Anchor 0 0 1 1
+    PositionX -7.54
+    OffsetLeft -7.54
+    PositionY 3.839
+    OffsetTop 3.839
+    SizeX 0
+    OffsetRight 7.54
+    SizeY 0.003
+    OffsetBottom -3.842
+   }
+   "Z Order" 2
+   {
+    FrameWidgetClass "{598C87EF4A1DC3BC}" {
+     Name "DragDropContainer"
+     Slot FrameWidgetSlot "{5645209D7C307C46}" {
+      OffsetLeft 0
+      OffsetTop 0
+      OffsetRight -100
+      SizeY 100
+      OffsetBottom -100
+     }
+     "Z Order" 99
+     components {
+      SCR_SlotUIComponent "{564532AE1CD634E4}" {
+       PositionX 300
+       PositionY 300
+       SizeX 100
+       SizeY 100
+      }
+     }
+     {
+      ItemPreviewWidgetClass "{598C87EF4A1DC3BD}" {
+       Name "item"
+       Slot FrameWidgetSlot "{564532AA08C50BFD}" {
+        OffsetLeft 0
+        OffsetTop 0
+        OffsetRight -100
+        SizeY 100
+        OffsetBottom -100
+       }
+       "Z Order" 99
+       Format "HDR High"
+       "Use clear color" 1
+       "Blend mode" Blend
+      }
+     }
+    }
+   }
+  }
+  OverlayWidgetClass "{598C87EF4A1DC343}" : "{6F1E013D3D33703D}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
    Name "TraderMenuBase"
    Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
     PositionX 0
@@ -1018,9 +1030,7 @@ FrameWidgetClass {
              m_sTabButtonContent "BUYBACK"
             }
            }
-           m_bKeepHiddenTabs 1
            m_bCreateAllTabsAtStart 1
-           m_bCycleMode 1
           }
          }
          {

@@ -1,0 +1,126 @@
+OverlayWidgetClass {
+ Name "MenuBase"
+ Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+  Anchor 0.05 0.05 0.95 0.95
+  PositionX -96
+  OffsetLeft 0
+  PositionY -54
+  OffsetTop 0
+  SizeX 192
+  OffsetRight 0
+  SizeY 108
+  OffsetBottom 0
+  SizeToContent 1
+ }
+ Clipping False
+ Color 0 0 0 0.941
+ {
+  SizeLayoutWidgetClass "{598C87EF8B9599C7}" {
+   Name "SizeBase"
+   Slot OverlayWidgetSlot "{589EF8CE4D84EB10}" {
+   }
+   components {
+    SCR_ForceAspectRatioComponent "{58E0D8283E191FB0}" {
+     m_fRatio 1.777
+    }
+   }
+   AllowWidthOverride 1
+   WidthOverride 1728
+   AllowHeightOverride 1
+   HeightOverride 972
+   {
+    VerticalLayoutWidgetClass "{598C87EF8B9599C1}" {
+     Name "VerticalLayout0"
+     Slot OverlayWidgetSlot "{589F04968FC3B215}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+     }
+     Clipping False
+     "Inherit Color" 1
+     {
+      SizeLayoutWidgetClass "{598C87EF8B9599C2}" {
+       Name "Header"
+       Slot LayoutSlot "{5488B97C9D820642}" {
+        VerticalAlign 1
+        FillWeight 0.05
+       }
+       "Is Enabled" 0
+       "Is Visible" 0
+       "Inherit Color" 1
+       AllowHeightOverride 1
+       HeightOverride 56
+       {
+        OverlayWidgetClass "{598C87EF8B955CA9}" {
+         Name "Overlay"
+         Slot LayoutSlot "{589F1BFADB1DDB58}" {
+          Padding 8 0 0 0
+          SizeMode Fill
+         }
+        }
+       }
+      }
+      OverlayWidgetClass "{598C87EF8B955CA6}" {
+       Name "ContentOverlay"
+       Slot LayoutSlot "{589F0497F7A00365}" {
+        SizeMode Fill
+       }
+      }
+      ImageWidgetClass "{598C87EF8B955CA5}" {
+       Name "Separator"
+       Slot LayoutSlot "{589F1425A723B8AC}" {
+        Padding 0 8 0 8
+       }
+       "Is Visible" 0
+       Color 0.761 0.386 0.078 1
+       Size 4 4
+      }
+      SizeLayoutWidgetClass "{598C87EF8B955CA4}" {
+       Name "SizeFooter"
+       Slot LayoutSlot "{589F0497E391442C}" {
+        VerticalAlign 2
+        Padding 0 0 0 0
+        FillWeight 0.06
+       }
+       AllowHeightOverride 1
+       HeightOverride 80
+       {
+        HorizontalLayoutWidgetClass "{598C87EF8B954499}" {
+         Name "Footer"
+         Slot LayoutSlot "{5488B97C9D81FC1B}" {
+          VerticalAlign 2
+          Padding 0 0 0 0
+          FillWeight 0.06
+         }
+         {
+          ButtonWidgetClass "{598C87EF8B95449F}" : "{08CF3B69CB1ACBC4}UI/layouts/WidgetLibrary/Buttons/WLib_NavigationButton.layout" {
+           Name "Back"
+           Slot LayoutSlot "{54ACA297E9BAB648}" {
+           }
+           components {
+            SCR_NavigationButtonComponent "{5474BAC5DBCF129A}" {
+             m_sSoundClicked "SOUND_FE_BUTTON_CANCEL"
+             m_sLabel "#AR-Menu_Back"
+             m_sActionName "MenuBack"
+            }
+           }
+           {
+           }
+          }
+          HorizontalLayoutWidgetClass "{598C87EF8B95449C}" {
+           Name "FooterRight"
+           Slot LayoutSlot "{56AC962104CF5CEF}" {
+            SizeMode Fill
+           }
+           "Z Order" 64
+           "Fill Origin" Right
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -50,7 +50,7 @@ OverlayWidgetClass {
          }
          {
           TextWidgetClass "{5988A2160FE370AC}" : "{9D643D214767D616}UI/layouts/WidgetLibrary/TextWidgets/Text_Heading2.layout" {
-           Name "Title"
+           Name "HeaderTitle"
            Slot OverlayWidgetSlot "{58A07816DC6C0038}" {
             HorizontalAlign 3
             VerticalAlign 3
