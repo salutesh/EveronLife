@@ -109,8 +109,11 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		DebugPrint("::UpdateView - Start");
 			
 		GetSellablePlayerItems();
-
 		UpdatePagesText();
+		
+		//! Recreate all existing storages and update there view (UI elements).
+		ShowStoragesList();
+        ShowAllStoragesInList();
 		
 		DebugPrint("::UpdateView - End");
 	}
@@ -132,7 +135,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			pSearchPredicate.prefabName = itemResourceName;
 			m_InventoryManager.FindItems(foundItems, pSearchPredicate, EStoragePurpose.PURPOSE_DEPOSIT);
 
-			EL_TraderMenuUI_ItemElement itemElement = GetSellableItemElementByPrefabName(itemResourceName);
+			EL_TraderMenuUI_ItemElement itemElement = GetSellableItemElementByResourceName(itemResourceName);
 			if (!itemElement)
 				return;
 
@@ -172,10 +175,6 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		if (!m_TabViewComponent)
 			return;
 		
-		/*SCR_TabViewContent activeTab = m_TabViewComponent.GetShownTabComponent();
-		if (!activeTab)
-			return;*/
-		
 		if (!m_aTraderItemBuyList || m_aTraderItemBuyList.Count() == 0)
 			return;
 
@@ -187,34 +186,6 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		CreateItems(m_aTraderItemSellList, m_TabSell.m_wTab, EL_TraderMenuUITab.TAB_SELL);
 		
 		DebugPrint("::CreateItemUIElements - End");
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	protected void UpdateItems()
-	{
-		DebugPrint("::UpdateItems - Start");
-		
-		if (!m_TabViewComponent)
-			return;
-		
-		if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_BUY)
-		{
-			foreach (EL_TraderMenuUI_ItemElement buyItemElement: m_aTraderPurchasableItemUIElements)
-			{
-				
-			}
-		}
-		else if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_SELL)
-		{
-			/*foreach (EL_TraderMenuUI_ItemElement sellItemElement: m_aTraderSellableItemUIElements)
-			{
-			
-			}*/
-			
-			GetSellablePlayerItems();
-		}
-		
-		DebugPrint("::UpdateItems - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -352,7 +323,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	EL_TraderMenuUI_ItemElement GetSellableItemElementByPrefabName(ResourceName resourceName)
+	EL_TraderMenuUI_ItemElement GetSellableItemElementByResourceName(ResourceName resourceName)
 	{
 		foreach(EL_TraderMenuUI_ItemElement itemElement: m_aTraderSellableItemUIElements)
 		{
@@ -374,8 +345,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		
 		super.OnMenuOpen();
 		
-		//! Hide vanilla inventory UI elements we not need and we dont want to display
-		HideInventoryElements();
+		HideInventoryElements(); //! Hide vanilla inventory UI elements we not need and we dont want to display
 		
 		if (!m_wLayoutRoot)
 			m_wLayoutRoot = GetRootWidget();
@@ -398,11 +368,27 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		}
 		
 		m_TabBuy = m_TabViewComponent.GetTabComponentByIndex(0);
+		if (!m_TabBuy)
+		{
+			Print(ToString() + "::InitTraderMenu - ERROR - Can't get buy tab from SCR_TabViewComponent!", LogLevel.ERROR);
+			return;
+		}
+		
 		m_TabSell = m_TabViewComponent.GetTabComponentByIndex(1);
+		if (!m_TabSell)
+		{
+			Print(ToString() + "::InitTraderMenu - ERROR - Can't get sell tab from SCR_TabViewComponent!", LogLevel.ERROR);
+			return;
+		}
+		
 		m_TabBuyBack = m_TabViewComponent.GetTabComponentByIndex(2);
-
+		if (!m_TabBuyBack)
+		{
+			Print(ToString() + "::InitTraderMenu - ERROR - Can't get buyback tab from SCR_TabViewComponent!", LogLevel.ERROR);
+			return;
+		}
+		
 		m_TabViewComponent.m_OnContentShow.Insert(UpdateView);
-		//m_TabViewComponent.m_OnContentCreate.Insert(UpdateView);
 		
 		m_wNextPage = ButtonWidget.Cast(m_wLayoutRoot.FindAnyWidget("ButtonRight"));
 		m_NextPageButton = SCR_PagingButtonComponent.Cast(m_wNextPage.FindHandler(SCR_PagingButtonComponent));
@@ -594,6 +580,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	//! Handles events called from the SimpleFSM method.
+	//------------------------------------------------------------------------------------------------
 	override void OnAction( SCR_NavigationButtonComponent comp, string action, SCR_InventoryStorageBaseUI pParentStorage = null, int traverseStorageIndex = -1 )
 	{
 		DebugPrint("::OnAction - Start");
@@ -713,12 +701,15 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	//! Gets called by Trader_Sell action
+	//! Take a look at the SimpleFSM and OnAnction functions for more information
+	//! Action input is defined in "Configs/System/chimeraInputCommon.conf"
+	//------------------------------------------------------------------------------------------------
 	protected void TrySellItem()
 	{
 		DebugPrint("::TrySellItem - Start");
 		
 		IEntity pItem = m_pSelectedSlotUI.GetInventoryItemComponent().GetOwner();
-		
 		if (!pItem)
 			return;
 
@@ -731,7 +722,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		if (foundItems.Count() == 0)
 			return;
 
-		EL_TraderMenuUI_ItemElement itemElement = GetSellableItemElementByPrefabName(itemResourceName);
+		EL_TraderMenuUI_ItemElement itemElement = GetSellableItemElementByResourceName(itemResourceName);
 		if (!itemElement)
 			return;
 
@@ -754,23 +745,15 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	 
 		m_pCallBack.m_pStorageFrom = m_pSelectedSlotUI.GetStorageUI();
 		m_pCallBack.m_pStorageTo = m_pStorageLootUI;
-		auto storage = m_pStorageLootUI.GetCurrentNavigationStorage();
-		if (storage)
+		
+		//! Droping it on the ground
+		auto pSlot = m_pSelectedSlotUI.GetInventoryItemComponent().GetParentSlot();
+		if (!pSlot)
+			return;
+		
+		if(!m_InventoryManager.TryRemoveItemFromInventory(pItem, pSlot.GetStorage(), m_pCallBack))
 		{
-			//! Moving into the opened storage in the vicinity
-			m_InventoryManager.InsertItem(pItem, m_pStorageLootUI.GetCurrentNavigationStorage(), pStorageFrom, m_pCallBack);
-		}
-		else
-		{
-			//! Droping it on the ground
-			auto pSlot = m_pSelectedSlotUI.GetInventoryItemComponent().GetParentSlot();
-			if (!pSlot)
-				return;
-			
-			if(!m_InventoryManager.TryRemoveItemFromInventory(pItem, pSlot.GetStorage(), m_pCallBack))
-			{
-				Print(ToString() + "TrySellItem - ERROR - Can't remove slot from storgare!");
-			}
+			Print(ToString() + "TrySellItem - ERROR - Can't remove slot from storgare!");
 		}
 		
 		for (int i = 0; i < quantityToSell; i++)
@@ -792,6 +775,12 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		DebugPrint("::TrySellItem - End");
 	}
 	
+	//------------------------------------------------------------------------------------------------
+	//! This method handles all the action calls executed by action inputs that are bound to
+	//! this menu by the defined action context in the "Configs/System/chimeraInputCommon.conf" file.
+	//! The used action inputs are set in the SCR_NavigationBarUI component that is set on the used menu layout.
+	//! Action context: InventoryContext
+	//! Layout path: UI/Layouts/Menus/Trader/EL_TraderMenu.layout
 	//------------------------------------------------------------------------------------------------
 	protected override void SimpleFSM(EMenuAction EAction = EMenuAction.ACTION_SELECT)
 	{
@@ -869,19 +858,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 				return;
 			} 
 			break;
-
-			case EMenuAction.ACTION_TRADE_SELL:
-			{
-				if (m_pFocusedSlotUI)
-				{
-					m_pSelectedSlotUI = m_pFocusedSlotUI;
-					TrySellItem();
-					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
-				}
-				ResetHighlightsOnAvailableStorages();
-			} 
-			break;
-
+			
 			case EMenuAction.ACTION_UNFOLD:
 			{
 				if (m_pFocusedSlotUI.GetStorageUI() == m_pStorageListUI) //if it is slot in the "storage list ui"
@@ -905,6 +882,18 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 					NavigationBarUpdate();
 					m_EStateMenuStorage = EStateMenuStorage.STATE_OPENED;
 				}
+			} 
+			break;
+			
+			case EMenuAction.ACTION_TRADE_SELL:
+			{
+				if (m_pFocusedSlotUI)
+				{
+					m_pSelectedSlotUI = m_pFocusedSlotUI;
+					TrySellItem();
+					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
+				}
+				ResetHighlightsOnAvailableStorages();
 			} 
 			break;
 		}
