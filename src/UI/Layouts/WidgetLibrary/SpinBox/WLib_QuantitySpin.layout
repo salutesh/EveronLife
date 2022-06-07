@@ -1,4 +1,4 @@
-ButtonWidgetClass {
+OverlayWidgetClass {
  Name "PagesBox"
  Slot AlignableSlot "{5534FAB1662D77B1}" {
   HorizontalAlign 3
@@ -6,12 +6,10 @@ ButtonWidgetClass {
  }
  Clipping False
  Color 1 1 1 0
- style blank
  {
   SizeLayoutWidgetClass "{5989554F54A0B95B}" : "{37F2B4CB4DDDD310}UI/layouts/WidgetLibrary/BaseElements/WLib_Base.layout" {
    Name "SizeLayout"
-   Slot ButtonWidgetSlot "{55367D829C978EC9}" {
-    HorizontalAlign 3
+   Slot OverlayWidgetSlot {
    }
    HeightOverride 38
    {

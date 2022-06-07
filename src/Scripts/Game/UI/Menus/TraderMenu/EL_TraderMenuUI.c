@@ -9,6 +9,7 @@ enum EL_TraderMenuUITab
 modded enum EMenuAction
 {
 	ACTION_TRADE_SELL,
+	ACTION_TRADE_BUY,
 	ACTION_QUANTITY_ADD,
 	ACTION_QUANTITY_REMOVE
 };
@@ -121,8 +122,18 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		ShowStoragesList();
         ShowAllStoragesInList();
 		
-		//ScrollLayoutWidget scroller = ScrollLayoutWidget.Cast(m_TabViewComponent.GetShownTabComponent().m_wTab.FindAnyWidget("ScrollLayout0"));
-		//GetGame().GetWorkspace().SetFocusedWidget(scroller);
+		int index;
+		ButtonWidget focusedWidget;
+		if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_BUY)
+		{
+			focusedWidget = ButtonWidget.Cast(m_aTraderPurchasableItemUIElements[0].GetRootWidget());
+		}
+		else if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_SELL)
+		{
+			focusedWidget = ButtonWidget.Cast(m_aTraderPurchasableItemUIElements[0].GetRootWidget());
+		}
+		
+		GetGame().GetWorkspace().SetFocusedWidget(focusedWidget);
 		
 		DebugPrint("::UpdateView - End");
 	}
@@ -257,21 +268,6 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 
 		m_LastPageItemIndex = itemsToAdd;
 		
-		/*int index;
-		ButtonWidget focusedWidget;
-		if (tab == EL_TraderMenuUITab.TAB_BUY)
-		{
-			index = m_aTraderPurchasableItemUIElements.Count() - 1;
-			focusedWidget = m_aTraderPurchasableItemUIElements[index].GetItemButton();
-		}
-		else if (tab == EL_TraderMenuUITab.TAB_SELL)
-		{
-			index = m_aTraderSellableItemUIElements.Count() - 1;
-			focusedWidget = m_aTraderPurchasableItemUIElements[index].GetItemButton();
-		}
-		
-		GetGame().GetWorkspace().SetFocusedWidget(focusedWidget);*/
-		
 		DebugPrint("::CreateItems - End");
 	}
 	
@@ -393,6 +389,46 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	//------------------------------------------------------------------------------------------------
 	//! BASE CLASS OVERRIDES
 	//------------------------------------------------------------------------------------------------
+	
+	//------------------------------------------------------------------------------------------------
+	protected override void InitializeCharacterInformation()
+	{
+		DebugPrint("::InitializeCharacterInformation - Start");
+		
+		super.InitializeCharacterInformation();
+		
+		DebugPrint("::InitializeCharacterInformation - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override void RegisterUIStorage(SCR_InventorySlotUI pStorageUI)
+	{
+		DebugPrint("::RegisterUIStorage - Start");
+		
+		super.RegisterUIStorage(pStorageUI);
+		
+		DebugPrint("::RegisterUIStorage - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override void SetActiveStorage(SCR_InventoryStorageBaseUI storageUI)
+	{
+		DebugPrint("::SetActiveStorage - Start");
+		
+		super.SetActiveStorage(storageUI);
+		
+		DebugPrint("::SetActiveStorage - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override void UnregisterUIStorage( SCR_InventorySlotUI pStorageUI )
+	{
+		DebugPrint("::UnregisterUIStorage - Start");
+		
+		super.UnregisterUIStorage(pStorageUI);
+		
+		DebugPrint("::UnregisterUIStorage - End");
+	}
 	
 	//------------------------------------------------------------------------------------------------
 	protected override void OnMenuOpen()
@@ -539,10 +575,30 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	//! Returns whether interaction with inventory items is possible
+	override bool GetCanInteract()
+	{
+		if (GetInspectionScreen())
+			return false;
+
+		return true;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! when clicked on item / storage slot using controller or mouse
+	protected override void Action_SelectItem()
+	{
+		// Ignore if we cannot interact
+		if (!GetCanInteract())
+			return;
+		
+		SimpleFSM(EMenuAction.ACTION_SELECT);
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	override void NavigationBarUpdate()
 	{
 		DebugPrint("::NavigationBarUpdate - Start");
-		
 		DebugPrint("::NavigationBarUpdate - m_pFocusedSlotUI: " + m_pFocusedSlotUI.ToString());
 		DebugPrint("::NavigationBarUpdate - m_pFocusedItemElement: " + m_pFocusedItemElement.ToString());
 		
@@ -560,6 +616,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 
 		if (m_pFocusedSlotUI)
 		{
+			DebugPrint("::NavigationBarUpdate - Element is Inventory Slot - Enable Buttons");
+			
 			if (m_pFocusedSlotUI.GetStorageUI() == m_pQuickSlotStorage)
 				return;
 	
@@ -576,11 +634,22 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		}
 		else if (m_pFocusedItemElement)
 		{
-			m_pNavigationBar.SetButtonEnabled("ButtonQuantityAdd", true);
+			DebugPrint("::NavigationBarUpdate - Element is Trader item element - Enable Buttons");
+			
+			m_pNavigationBar.SetButtonEnabled("ButtonSelect", true);
 			m_pNavigationBar.SetButtonActionName("ButtonQuantityAdd", "Quantity_Add");
-			m_pNavigationBar.SetButtonEnabled("ButtonQuantityRemove", true);
+			m_pNavigationBar.SetButtonEnabled("ButtonQuantityAdd", true);
 			m_pNavigationBar.SetButtonActionName("ButtonQuantityRemove", "Quantity_Remove");
-			m_pNavigationBar.SetButtonEnabled("ButtonSell", true);
+			m_pNavigationBar.SetButtonEnabled("ButtonQuantityRemove", true);
+			
+			if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_SELL)
+			{
+				m_pNavigationBar.SetButtonEnabled("ButtonSell", true);
+			}
+			else if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_BUY)
+			{
+				m_pNavigationBar.SetButtonEnabled("ButtonBuy", true);
+			}
 		}
 		
 		DebugPrint("::NavigationBarUpdate - End");
@@ -649,12 +718,19 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		else if (m_pFocusedItemElement)
 		{
 			DebugPrint("::NavigationBarUpdateGamepad - m_pFocusedItemElement - ENABLE BUTTONS");
-			
 			m_pNavigationBar.SetButtonEnabled("ButtonQuantityAdd", true);
 			m_pNavigationBar.SetButtonActionName("ButtonQuantityAdd", "Quantity_Add");
 			m_pNavigationBar.SetButtonEnabled("ButtonQuantityRemove", true);
 			m_pNavigationBar.SetButtonActionName("ButtonQuantityRemove", "Quantity_Remove");
-			m_pNavigationBar.SetButtonEnabled("ButtonSell", true);
+			
+			if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_SELL)
+			{
+				m_pNavigationBar.SetButtonEnabled("ButtonSell", true);
+			}
+			else if (m_TabViewComponent.m_iSelectedTab == EL_TraderMenuUITab.TAB_BUY)
+			{
+				m_pNavigationBar.SetButtonEnabled("ButtonBuy", true);
+			}
 		}
 		
 		DebugPrint("::NavigationBarUpdateGamepad - End");
@@ -802,12 +878,33 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	{
 		DebugPrint("::TrySellItem - Start");
 		
-		IEntity pItem = m_pSelectedSlotUI.GetInventoryItemComponent().GetOwner();
-		if (!pItem)
-			return;
+		IEntity pItem;
+		ResourceName itemResourceName;
+		if (m_pSelectedSlotUI)
+		{
+			pItem = m_pSelectedSlotUI.GetInventoryItemComponent().GetOwner();
+			if (!pItem)
+			{
+				Print(ToString() + "::TrySellItem - ERROR - Can't get IEntity from selected UI element.", LogLevel.ERROR);
+				return;
+			}
+			
+			itemResourceName = pItem.GetPrefabData().GetPrefabName();
+		}
+		else if (m_pSelectedItemElement)
+		{
+			itemResourceName = m_pSelectedItemElement.GetItemResourceName();
+		}
 
+		if (itemResourceName == string.Empty)
+		{
+			Print(ToString() + "::TrySellItem - ERROR - No valid element selected!", LogLevel.ERROR);
+			return;
+		}
+		
 		array<IEntity> foundItems = new array<IEntity>;
-		ResourceName itemResourceName = pItem.GetPrefabData().GetPrefabName();
+		DebugPrint("::TrySellItem - Resource name: " + itemResourceName);
+		
 		SCR_PrefabNamePredicate	pSearchPredicate = new SCR_PrefabNamePredicate();
 		pSearchPredicate.prefabName = itemResourceName;
 		m_InventoryManager.FindItems(foundItems, pSearchPredicate, EStoragePurpose.PURPOSE_DEPOSIT);
@@ -826,25 +923,20 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 
 		DebugPrint("::TrySellItem - quantityToSell: " + quantityToSell);
 
-		m_pCallBack.m_pItem = pItem;
-		m_pCallBack.m_pMenu = this;
-		m_pCallBack.m_pStorageToFocus = m_pSelectedSlotUI.GetStorageUI();
-		m_pCallBack.m_sItemToFocus = m_pSelectedSlotUI.GetItemName();
+		//m_pCallBack.m_pItem = pItem;
+		//m_pCallBack.m_pMenu = this;
+		//m_pCallBack.m_pStorageToFocus = m_pSelectedSlotUI.GetStorageUI();
+		//m_pCallBack.m_sItemToFocus = m_pSelectedSlotUI.GetItemName();
 		
-		BaseInventoryStorageComponent pStorageFrom = m_pSelectedSlotUI.GetStorageUI().GetStorage();
+		//BaseInventoryStorageComponent pStorageFrom = m_pSelectedSlotUI.GetStorageUI().GetStorage();
 		
-		if (!m_InventoryManager.CanMoveItem(pItem))
-			return;
+		//if (!m_InventoryManager.CanMoveItem(pItem))
+			//return;
 	 
-		m_pCallBack.m_pStorageFrom = m_pSelectedSlotUI.GetStorageUI();
-		m_pCallBack.m_pStorageTo = m_pStorageLootUI;
-		
-		//! Droping it on the ground
-		auto pSlot = m_pSelectedSlotUI.GetInventoryItemComponent().GetParentSlot();
-		if (!pSlot)
-			return;
-		
-		if(!m_InventoryManager.TryRemoveItemFromInventory(pItem, pSlot.GetStorage(), m_pCallBack))
+		//m_pCallBack.m_pStorageFrom = m_pSelectedSlotUI.GetStorageUI();
+		//m_pCallBack.m_pStorageTo = null;
+				
+		if(!m_InventoryManager.TryRemoveItemFromInventory(pItem, null, null))
 		{
 			Print(ToString() + "TrySellItem - ERROR - Can't remove slot from storgare!");
 		}
@@ -883,6 +975,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		{
 			case EMenuAction.ACTION_MOVEINSIDE:
 			{
+				DebugPrint("::SimpleFSM - ACTION_MOVEINSIDE");
 				Action_MoveItemToStorage(m_pActiveStorageUI);
 				
 				if (IsUsingGamepad())
@@ -903,6 +996,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_SELECT:
 			{
+				DebugPrint("::SimpleFSM - ACTION_SELECT");
 				DebugPrint("::SimpleFSM - m_pFocusedSlotUI: " + m_pFocusedSlotUI.ToString());
 				DebugPrint("::SimpleFSM - m_pFocusedItemElement: " + m_pFocusedItemElement.ToString());
 				
@@ -929,11 +1023,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 					if (m_pSelectedItemElement)
 						m_pSelectedItemElement.SetSelected(false);
 					
-					if (IsUsingGamepad())
-					{
-						m_pSelectedItemElement = m_pFocusedItemElement;
-						m_pSelectedItemElement.SetSelected(true);
-					}
+					m_pSelectedItemElement = m_pFocusedItemElement;
+					m_pSelectedItemElement.SetSelected(true);
 					
 					NavigationBarUpdate();
 				}
@@ -942,11 +1033,17 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_DESELECT:
 			{
+				DebugPrint("::SimpleFSM - ACTION_DESELECT");
 				if (m_pSelectedSlotUI)
 				{
 					ResetHighlightsOnAvailableStorages();
 					m_pSelectedSlotUI.SetSelected(false);
 					m_pSelectedSlotUI = null;
+				}
+				else if (m_pSelectedItemElement)
+				{
+					m_pSelectedItemElement.SetSelected(false);
+					m_pSelectedItemElement = null;
 				}
 
 				NavigationBarUpdate();
@@ -955,6 +1052,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_DRAGGED:
 			{
+				DebugPrint("::SimpleFSM - ACTION_DRAGGED");
+				
 				m_EStateMenuItem = EStateMenuItem.STATE_MOVING_ITEM_STARTED;
 				SCR_UISoundEntity.SoundEvent("SOUND_INV_CONTAINER_DRAG");
 			} 
@@ -962,9 +1061,13 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_DROPPED:
 			{
+				DebugPrint("::SimpleFSM - ACTION_DROPPED");
+				
 				Action_Drop();
+				
 				if (m_pActiveHoveredStorageUI)
 					m_pActiveHoveredStorageUI.ShowContainerBorder(false);
+				
 				m_EStateMenuItem = EStateMenuItem.STATE_IDLE;
 				return;
 			} 
@@ -972,6 +1075,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_UNFOLD:
 			{
+				DebugPrint("::SimpleFSM - ACTION_UNFOLD");
+				
 				if (m_pFocusedSlotUI.GetStorageUI() == m_pStorageListUI) //if it is slot in the "storage list ui"
 				{
 					if (BaseInventoryStorageComponent.Cast(m_pFocusedSlotUI.GetAsStorage()))	// and if it is a storage
@@ -998,10 +1103,37 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_TRADE_SELL:
 			{
+				DebugPrint("::SimpleFSM - ACTION_TRADE_SELL");
+				
+				if (m_pFocusedSlotUI)
+				{
+					DebugPrint("::SimpleFSM - Selected - ACTION_TRADE_SELL - m_pFocusedSlotUI");
+					
+					m_pSelectedSlotUI = m_pFocusedSlotUI;
+					TrySellItem();
+					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
+				}
+				else if (m_pFocusedItemElement)
+				{
+					DebugPrint("::SimpleFSM - Selected - ACTION_TRADE_SELL - m_pFocusedItemElement");
+					
+					m_pFocusedItemElement = m_pSelectedItemElement;
+					TrySellItem();
+					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
+				}
+				
+				ResetHighlightsOnAvailableStorages();
+			} 
+			break;
+			
+			case EMenuAction.ACTION_TRADE_BUY:
+			{
+				DebugPrint("::SimpleFSM - ACTION_TRADE_BUY");
+				
 				if (m_pFocusedSlotUI)
 				{
 					m_pSelectedSlotUI = m_pFocusedSlotUI;
-					TrySellItem();
+					
 					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
 				}
 				ResetHighlightsOnAvailableStorages();
@@ -1010,6 +1142,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_QUANTITY_REMOVE:
 			{
+				DebugPrint("::SimpleFSM - ACTION_QUANTITY_REMOVE");
+				
 				if (m_pFocusedItemElement)
 				{
 					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
@@ -1019,6 +1153,8 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 			
 			case EMenuAction.ACTION_QUANTITY_ADD:
 			{
+				DebugPrint("::SimpleFSM - ACTION_QUANTITY_ADD");
+				
 				if (m_pFocusedItemElement)
 				{
 					SCR_UISoundEntity.SoundEvent("SOUND_INV_PICKUP_CLICK");
@@ -1030,7 +1166,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		if (!IsUsingGamepad())
 		{
 			m_pSelectedSlotUI = m_pFocusedSlotUI;
-			m_pFocusedItemElement = m_pFocusedItemElement;
+			m_pSelectedItemElement = m_pFocusedItemElement;
 		}
 
 		HideItemInfo();
@@ -1041,16 +1177,14 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	//------------------------------------------------------------------------------------------------
 	override void HandleSlottedItemFunction()
 	{
-		DebugPrint("::HandleSlottedItemFunction - Start");
-		
 		string sAction = "Inventory_Select";
-		switch (m_pFocusedSlotUI.GetSlotedItemFunction())
+
+		switch ( m_pFocusedSlotUI.GetSlotedItemFunction() )
 		{
 			case ESlotFunction.TYPE_GADGET:
 			{
 				// m_pNavigationBar.SetButtonEnabled( "ButtonEquip", true );
-			} 
-			break;
+			} break;
 
 			case ESlotFunction.TYPE_WEAPON:
 			{
@@ -1059,84 +1193,70 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 				if (item)
 				{
 					WeaponComponent weaponComp = WeaponComponent.Cast(item.FindComponent(WeaponComponent));
-					if (weaponComp && weaponComp.GetWeaponType() != EWeaponType.WT_FRAGGRENADE && weaponComp.GetWeaponType() != EWeaponType.WT_SMOKEGRENADE)
+					if (weaponComp &&
+						weaponComp.GetWeaponType() != EWeaponType.WT_FRAGGRENADE &&
+						weaponComp.GetWeaponType() != EWeaponType.WT_SMOKEGRENADE)
 					{
-						m_pNavigationBar.SetButtonEnabled("ButtonOpenStorage", true);	// look into it
+						m_pNavigationBar.SetButtonEnabled( "ButtonOpenStorage", true );		// look into it
 					}
 				}
-			} 
-			break;
+			} break;
 
 			case ESlotFunction.TYPE_MAGAZINE:
 			{
 				// TODO: show the Reload action
-				//m_pNavigationBar.SetButtonEnabled("ButtonUse", true);
-			} 
-			break;
+				//m_pNavigationBar.SetButtonEnabled( "ButtonUse", true );
+			} break;
 
 			case ESlotFunction.TYPE_CONSUMABLE:
 			{
 				// TODO: show the Consume action
-				m_pNavigationBar.SetButtonEnabled("ButtonUse", true);
-			} 
-			break;
+				m_pNavigationBar.SetButtonEnabled( "ButtonUse", true );
+			} break;
 
 			case ESlotFunction.TYPE_STORAGE:
 			{
-				if(m_EStateMenuItem == EStateMenuItem.STATE_MOVING_ITEM_STARTED && m_pFocusedSlotUI != m_pSelectedSlotUI)
+				if( m_EStateMenuItem == EStateMenuItem.STATE_MOVING_ITEM_STARTED && m_pFocusedSlotUI != m_pSelectedSlotUI )
 				{
-					sAction = "Trade_Sell";
+					sAction = "Inventory_Move";
 					//m_pNavigationBar.SetButtonEnabled( "ButtonSelect", false );
 					//m_pNavigationBar.SetButtonEnabled( "ButtonMove", true );
 				}
 				// Enable in case the storage is not "togglable" - can be only shown and only opening another storage will close it
-				/*else if (m_EStateMenuStorage == EStateMenuStorage.STATE_OPENED && m_pFocusedSlotUI == m_pSelectedSlotUI && m_pFocusedSlotUI.Type() != SCR_InventorySlotStorageEmbeddedUI)
+				/*else if ( m_EStateMenuStorage == EStateMenuStorage.STATE_OPENED && m_pFocusedSlotUI == m_pSelectedSlotUI && m_pFocusedSlotUI.Type() != SCR_InventorySlotStorageEmbeddedUI)
 				{
-					m_pNavigationBar.SetButtonEnabled("ButtonSelect", false);
+					m_pNavigationBar.SetButtonEnabled( "ButtonSelect", false );
 				}*/
-				else if (m_pFocusedSlotUI.Type() == SCR_InventorySlotStorageEmbeddedUI)
+				else if ( m_pFocusedSlotUI.Type() == SCR_InventorySlotStorageEmbeddedUI )
 				{
-					m_pNavigationBar.SetButtonEnabled("ButtonOpenStorage", true);
+					m_pNavigationBar.SetButtonEnabled( "ButtonOpenStorage", true );
 				}
-			} 
-			break;
+			} break;
 
 			case ESlotFunction.TYPE_HEALTH:
 			{
 				// TODO: show the Heal action
-				m_pNavigationBar.SetButtonEnabled("ButtonUse", true);
-			} 
-			break;
+				m_pNavigationBar.SetButtonEnabled( "ButtonUse", true );
+			} break;
 		}
 
-		HandleSelectButtonState(sAction);
-		
-		DebugPrint("::HandleSlottedItemFunction - End");
+		HandleSelectButtonState( sAction );
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	protected override void HandleSelectButtonState(string sAction = "Inventory_Select")
+	protected override void HandleSelectButtonState( string sAction = "Inventory_Select" )
 	{
-		DebugPrint("::HandleSelectButtonState - Start");
-		
 		//TODO: this can be done better
-		if (sAction == "Trade_Sell")
-		{
-			m_pNavigationBar.SetButtonActionName("ButtonSell", sAction);
-		}
+
+		if ( sAction == "Inventory_Move" )
+			m_pNavigationBar.SetButtonActionName( "ButtonSelect", sAction );
 		else
 		{
-			if (!m_pFocusedSlotUI.IsSlotSelected())
-			{
-				m_pNavigationBar.SetButtonActionName("ButtonSelect", sAction);
-			}
+			if ( !m_pFocusedSlotUI.IsSlotSelected() )
+				m_pNavigationBar.SetButtonActionName( "ButtonSelect", sAction );
 			else
-			{
-				m_pNavigationBar.SetButtonActionName("ButtonSelect", "Inventory_Deselect");
-			}
+				m_pNavigationBar.SetButtonActionName( "ButtonSelect", "Inventory_Deselect" );
 		}
-		
-		DebugPrint("::HandleSelectButtonState - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -1144,9 +1264,226 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 	{
 		DebugPrint("::SetStorageSwitchMode - Start");
 		
-		super.SetStorageSwitchMode(enabled);
+		m_bStorageSwitchMode = enabled;
+		foreach (SCR_InventoryStorageBaseUI storage : m_aStorages)
+		{
+			if (storage)
+				storage.ActivateStorageButton(m_bStorageSwitchMode);
+		}
+
+		//m_pStorageLootUI.ActivateStorageButton(m_bStorageSwitchMode);
+		m_pStorageListUI.ActivateStorageButton(m_bStorageSwitchMode);
+		//m_pQuickSlotStorage.ActivateStorageButton(m_bStorageSwitchMode);
+
+		if (m_bStorageSwitchMode)
+		{
+			Widget btnToFocus = m_pStorageListUI.GetButtonWidget();
+			if (m_pActiveStorageUI)
+				btnToFocus = m_pActiveStorageUI.GetButtonWidget();
+			GetGame().GetWorkspace().SetFocusedWidget(btnToFocus);
+		}
+		else
+		{
+			if (m_pActiveStorageUI)
+			{
+				m_pActiveStorageUI.ShowContainerBorder(false);
+				FocusOnSlotInStorage(m_pActiveStorageUI);
+			}
+		}
+
+		NavigationBarUpdate();
 		
 		DebugPrint("::SetStorageSwitchMode - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override void ToggleStorageSwitchMode()
+	{
+		DebugPrint("::ToggleStorageSwitchMode - Start");
+		
+		super.ToggleStorageSwitchMode();
+		
+		DebugPrint("::ToggleStorageSwitchMode - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	// ! Default view of the menu inventory
+	override void ShowDefault()
+	{
+		DebugPrint("::ShowDefault - Start");
+		
+		ShowEquipedWeaponStorage();
+		if (!m_pSelectedSlotStorageUI)
+		{
+			SimpleFSM(EMenuAction.ACTION_BACK);
+			return;
+		}
+		m_pSelectedSlotStorageUI.SetSelected(false);
+
+		if (m_pSelectedSlotUI)
+		{
+			m_pSelectedSlotUI.SetSelected(false);
+			m_pSelectedSlotUI = null;
+		}
+		if (m_pSelectedSlotStorageUI)
+			m_pSelectedSlotStorageUI = null;
+
+		FilterOutStorages(false);
+		
+		DebugPrint("::ShowDefault - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override int CloseOpenedStorage()
+	{
+		DebugPrint("::CloseOpenedStorage - Start");
+		
+		return super.CloseOpenedStorage();
+		
+		DebugPrint("::CloseOpenedStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected override int CloseStorage( SCR_InventoryStorageBaseUI pStorageUI )
+	{
+		DebugPrint("::CloseStorage - Start");
+		
+		return super.CloseStorage(pStorageUI);
+		
+		DebugPrint("::CloseStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected override int CloseStorage( notnull Widget w )
+	{
+		DebugPrint("::CloseStorage - Start");
+		
+		return super.CloseStorage(w);
+		
+		DebugPrint("::CloseStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	// ! Hides/Unhides ( not closes ) the storage
+	protected override void ToggleStorageContainerVisibility( notnull SCR_InventorySlotUI pSlot )
+	{
+		DebugPrint("::ToggleStorageContainerVisibility - Start");
+		
+		super.ToggleStorageContainerVisibility(pSlot);
+		
+		DebugPrint("::ToggleStorageContainerVisibility - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	// ! Shows the content of the 1st available storage
+	override void ShowStorage()
+	{
+		DebugPrint("::ShowStorage - Start");
+		
+		super.ShowStorage();
+		
+		DebugPrint("::ShowStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	//!
+	override void ShowStorage( BaseInventoryStorageComponent storage, ELoadoutArea area = ELoadoutArea.ELA_None )
+	{
+		DebugPrint("::ShowStorage - Start");
+		
+		super.ShowStorage(storage, area);
+		
+		DebugPrint("::ShowStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void ShowVicinity()
+	{
+		DebugPrint("::ShowVicinity - Start");
+		
+		super.ShowVicinity();
+		
+		DebugPrint("::ShowVicinity - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void RefreshLootUIListener()
+	{
+		DebugPrint("::RefreshLootUIListener - Start");
+		
+		super.RefreshLootUIListener();
+		
+		DebugPrint("::RefreshLootUIListener - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void ShowStoragesList()
+	{
+		DebugPrint("::ShowStoragesList - Start");
+		
+		super.ShowStoragesList();
+		
+		DebugPrint("::ShowStoragesList - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void ShowAllStoragesInList()
+	{
+		DebugPrint("::ShowAllStoragesInList - Start");
+		
+		super.ShowAllStoragesInList();
+		
+		DebugPrint("::ShowAllStoragesInList - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override void SortSlotsByLoadoutArea( out array<SCR_InventorySlotUI> aSlots )
+	{
+		DebugPrint("::SortSlotsByLoadoutArea - Start");
+		
+		super.SortSlotsByLoadoutArea(aSlots);
+		
+		DebugPrint("::SortSlotsByLoadoutArea - End");
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override void ShowGadgetStorage()
+	{
+		DebugPrint("::ShowGadgetStorage - Start");
+		
+		super.ShowGadgetStorage();
+		
+		DebugPrint("::ShowGadgetStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected override void ShowEquipedWeaponStorage()
+	{
+		DebugPrint("::ShowEquipedWeaponStorage - Start");
+		
+		super.ShowEquipedWeaponStorage();
+		
+		DebugPrint("::ShowEquipedWeaponStorage - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void ShowItemInfo( string sName = "", string sDescr = "", float sWeight = 0.0 )
+	{
+		DebugPrint("::ShowItemInfo - Start");
+		
+		super.ShowItemInfo(sName, sDescr, sWeight);
+		
+		DebugPrint("::ShowItemInfo - End");
+	}
+
+	//------------------------------------------------------------------------------------------------
+	override void HideItemInfo()
+	{
+		DebugPrint("::HideItemInfo - Start");
+		
+		super.HideItemInfo();
+		
+		DebugPrint("::HideItemInfo - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -1188,7 +1525,7 @@ class EL_TraderMenuUI: SCR_InventoryMenuUI
 		
 		DebugPrint("::OnContainerFocusLeft - End");
 	}
-		
+	
 	//------------------------------------------------------------------------------------------------
 	override void Action_QuickSlotAssign();
 	//------------------------------------------------------------------------------------------------

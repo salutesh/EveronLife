@@ -1,6 +1,7 @@
 ButtonWidgetClass {
  Name "EL_TraderItemElement"
- Color 1 1 1 0
+ Color 0 0 0 0.553
+ "Inherit Color" 1
  components {
   EL_TraderMenuUI_ItemElementComponent "{598D5C04F1852CF1}" {
   }
@@ -12,16 +13,8 @@ ButtonWidgetClass {
     HorizontalAlign 3
     VerticalAlign 3
    }
+   "Z Order" 1
    {
-    ImageWidgetClass "{5988FD4950129C76}" {
-     Name "Background"
-     Slot OverlayWidgetSlot "{598D14E7637DF87D}" {
-      HorizontalAlign 3
-     }
-     Color 0 0 0 0.588
-     Pivot 0 0
-     Size 400 64
-    }
     SizeLayoutWidgetClass "{598D14E7537D1AA3}" {
      Name "SizeLayout2"
      Slot OverlayWidgetSlot "{598D14E024CCCD73}" {
@@ -44,6 +37,17 @@ ButtonWidgetClass {
         SCR_ButtonBaseComponent "{59886E9F19B65B2F}" {
         }
        }
+       style blank
+       {
+        ImageWidgetClass "{598EBB4BB47C9DFC}" {
+         Name "Image0"
+         Slot ButtonWidgetSlot "{598EBB4BB47C9D02}" {
+         }
+         Texture "{FF87663D4FB421B8}UI/Textures/Notifications/Notification_Budget_Enabled.edds"
+         Image ""
+         Size 64 64
+        }
+       }
       }
      }
     }
@@ -58,7 +62,7 @@ ButtonWidgetClass {
      "Min Font Size" 16
      "Vertical Alignment" Center
     }
-    ButtonWidgetClass "{59896B0BED519DDC}" : "{1379ABFE611730C7}UI/Layouts/WidgetLibrary/SpinBox/WLib_QuantitySpin.layout" {
+    OverlayWidgetClass "{59896B0BED519DDC}" : "{1379ABFE611730C7}UI/Layouts/WidgetLibrary/SpinBox/WLib_QuantitySpin.layout" {
      Name "PagesBox0"
      Slot OverlayWidgetSlot "{598D2C5E1BB38B97}" {
      }
@@ -75,11 +79,6 @@ ButtonWidgetClass {
         OverlayWidgetClass "{55367D8E531FD623}" {
          Prefab "{55367D8E531FD623}"
          {
-          ImageWidgetClass "{55367D8E48B5ED75}" {
-           Prefab "{55367D8E48B5ED75}"
-           "Is Enabled" 0
-           "Is Visible" 0
-          }
           PanelWidgetClass "{55367D8E4A135500}" {
            Prefab "{55367D8E4A135500}"
            "Is Enabled" 0
@@ -146,9 +145,12 @@ ButtonWidgetClass {
         HorizontalAlign 0
         VerticalAlign 0
        }
-       Color 0 0 0 0.588
+       Color 1 1 1 0.314
+       "Inherit Color" 1
        Pivot 0 0
-       Size 64 64
+       Texture "{7663C3C4858F9633}UI/Textures/InventoryIcons/tex-alpha-inventory3.edds"
+       Image ""
+       Size 128 128
       }
      }
     }

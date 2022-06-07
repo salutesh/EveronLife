@@ -5,16 +5,17 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	protected EL_TraderItemInfo m_ItemInfo;
 	protected ItemPreviewManagerEntity m_PreviewManager;
 	protected ResourceName m_ItemResourceName;
+	protected InventoryItemComponent m_pItemComp;
 	
 	protected Widget m_wRoot;
+	protected ButtonWidget m_wElementButton;
 	protected RichTextWidget m_wItemName;
 	protected RenderTargetWidget m_wPreviewImage;
 	protected ItemPreviewWidget m_wItemPreview;
-	//protected ButtonWidget m_wItemButton;
 	protected ButtonWidget m_wAddQuantityButton;
 	protected ButtonWidget m_wRemoveQuantityButton;
 	protected RichTextWidget m_wQuantityText;
-	protected ImageWidget m_wElementBackground;
+	protected Widget m_wElementBorder;
 	
 	protected UIInfo m_ItemUIInfo;
 	protected SCR_InventoryItemInfoUI m_pItemInfo;
@@ -23,7 +24,6 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	
 	protected SCR_PagingButtonComponent m_QuantityAddButton;
 	protected SCR_PagingButtonComponent m_QuantityRemoveButton;
-	//protected SCR_ButtonBaseComponent m_ItemButton;
 	protected EL_TraderMenuUI_ItemElementComponent m_ItemElementComponent;
 	
 	protected int m_Quantity = 0;
@@ -72,13 +72,19 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		IEntity previewEntity = GetGame().SpawnEntityPrefabLocal(res);
 		SetPreviewedItem(previewEntity);
 		
-		InventoryItemComponent invItemComp = InventoryItemComponent.Cast(previewEntity.FindComponent(InventoryItemComponent));
-		if (!invItemComp) 
+		m_pItemComp = InventoryItemComponent.Cast(previewEntity.FindComponent(InventoryItemComponent));
+		if (!m_pItemComp)
+		{
+			Print(ToString() + "SetElement - ERROR - Can't get InventoryItemComponent from preview entity!", LogLevel.ERROR);
 			return;
+		}
 		
-		m_ItemUIInfo = invItemComp.GetAttributes().GetUIInfo();
+		m_ItemUIInfo = m_pItemComp.GetAttributes().GetUIInfo();
 		if (!m_ItemUIInfo)
+		{
+			Print(ToString() + "SetElement - ERROR - Can't get UIInfo from preview entity InventoryItemComponent!", LogLevel.ERROR);
 			return;
+		}
 		
 		m_wItemName.SetText(m_ItemUIInfo.GetName());
 		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
@@ -183,12 +189,14 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	protected void OnItemButtonFocus()
 	{
 		m_TraderMenu.SetFocusedItemElement(this);
+		m_wElementBorder.SetVisible(true);
 	}
 	
 	//------------------------------------------------------------------------------------------------
 	protected void OnItemButtonFocusLost()
 	{
 		m_TraderMenu.SetFocusedItemElement(null);
+		m_wElementBorder.SetVisible(false);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -268,12 +276,6 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	/*ButtonWidget GetItemButton()
-	{
-		return m_wItemButton;
-	}*/
-	
-	//------------------------------------------------------------------------------------------------
 	ResourceName GetItemResourceName()
 	{
 		return m_ItemResourceName;
@@ -285,6 +287,12 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		return m_ItemElementComponent;
 	}
 	
+	//------------------------------------------------------------------------------------------------	
+	InventoryItemComponent GetInventoryItemComponent()
+	{
+		return m_pItemComp;
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	//! BASE CLASS OVERRIDES
 	//------------------------------------------------------------------------------------------------
@@ -294,18 +302,12 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	{
 		DebugPrint("::HandlerAttached - Start");
 		
+		m_wElementButton = ButtonWidget.Cast(m_wRoot);
 		m_wItemName = RichTextWidget.Cast(m_wRoot.FindAnyWidget("ItemName"));
 		m_wPreviewImage = ItemPreviewWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
 		m_wItemPreview = ItemPreviewWidget.Cast(m_wPreviewImage);
-		m_wElementBackground = ImageWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
+		m_wElementBorder = m_wRoot.FindAnyWidget("ElementBorder");
 		
-		/*m_wItemButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("Button0"));
-		m_ItemButton = SCR_ButtonBaseComponent.Cast(m_wItemButton.FindHandler(SCR_ButtonBaseComponent));
-		if (!m_ItemButton)
-			return;
-		
-		m_ItemButton.m_OnClicked.Insert(OnItemButtonClicked);*/
-
 		m_wQuantityText = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PagesText"));
 		m_wAddQuantityButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ButtonAdd")); 
 		m_QuantityAddButton = SCR_PagingButtonComponent.Cast(m_wAddQuantityButton.FindHandler(SCR_PagingButtonComponent));
@@ -340,9 +342,12 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		
 		super.OnMouseEnter(w, x, y);
 		
-		if (w == m_wRoot && m_ItemUIInfo)
+		if (w == m_wRoot)
 		{
-			ShowItemInfo(m_ItemUIInfo.GetName(), m_ItemUIInfo.GetDescription());
+			m_wElementButton.SetColor(Color.FromRGBA(194,99,20,150));
+			OnItemButtonFocus();
+			if (m_ItemUIInfo)
+				ShowItemInfo(m_ItemUIInfo.GetName(), m_ItemUIInfo.GetDescription());
 		}
 		
 		DebugPrint("::OnMouseEnter - End");
@@ -358,9 +363,12 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		
 		super.OnMouseLeave(w, enterW, x, y);
 		
-		if (w == m_wRoot && m_pItemInfo)
+		if (w == m_wRoot)
 		{
-			HideItemInfo();
+			m_wElementButton.SetColor(Color.FromRGBA(0,0,0,150));
+			OnItemButtonFocusLost();
+			if (m_pItemInfo)
+				HideItemInfo();
 		}
 		
 		DebugPrint("::OnMouseLeave - End");
@@ -369,7 +377,7 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	override bool OnFocus(Widget w, int x, int y)
+	/*override bool OnFocus(Widget w, int x, int y)
 	{
 		DebugPrint("::OnFocus - Start");
 		DebugPrint("::OnFocus - Widget: " + w.GetName());
@@ -389,12 +397,12 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		DebugPrint("::OnFocusLost - Widget: " + w.GetName());		
 		
 		if (w == m_wRoot)
-			OnItemButtonFocusLost();
-		
+			OnItemButtonFocusLost();	
+			
 		DebugPrint("::OnFocusLost - End");
 		
 		return false;
-	}
+	}*/
 	
 	//------------------------------------------------------------------------------------------------
 	void DebugPrint(string text)

@@ -1,4 +1,4 @@
-OverlayWidgetClass {
+ButtonWidgetClass {
  Name "MenuBase"
  Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
   Anchor 0.05 0.05 0.95 0.95
@@ -13,11 +13,16 @@ OverlayWidgetClass {
   SizeToContent 1
  }
  Clipping False
- Color 0 0 0 0.941
+ components {
+  SCR_ButtonComponent "{598ECCEDCA382B29}" {
+   m_bShowBorderOnHover 1
+  }
+ }
+ style blank
  {
   SizeLayoutWidgetClass "{5988A2160FE370A6}" {
    Name "SizeBase"
-   Slot OverlayWidgetSlot "{589EF8CE4D84EB10}" {
+   Slot ButtonWidgetSlot {
    }
    AllowWidthOverride 1
    WidthOverride 1728

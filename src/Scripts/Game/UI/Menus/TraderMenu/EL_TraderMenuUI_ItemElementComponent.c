@@ -2,25 +2,25 @@ class EL_TraderMenuUI_ItemElementComponent : ScriptedWidgetComponent
 {
 	protected EL_TraderMenuUI m_TraderMenu;
 	
-	protected ButtonWidget m_QuantitySelectionButton;
-	protected EL_TraderMenuUI_ItemElementQuantityComponent m_QuantityComponent;
+	//protected Widget m_QuantitySelectionRoot;
+	//protected EL_TraderMenuUI_ItemElementQuantityComponent m_QuantityComponent;
 	
-	protected Widget m_wRoot;
-	protected Widget m_wElementBorder;
+	//protected Widget m_wRoot;
+	//protected Widget m_wElementBorder;
 	
 	void SetTraderMenu(EL_TraderMenuUI menu)
 	{
 		m_TraderMenu = menu;
 	}
 	
-	override void HandlerAttached(Widget w)
+	/*override void HandlerAttached(Widget w)
 	{
 		DebugPrint("::HandlerAttached - Start");
 		
 		m_wRoot = w;
 		
-		m_QuantitySelectionButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("PagesBox0"));	
-		m_QuantityComponent = EL_TraderMenuUI_ItemElementQuantityComponent.Cast(m_QuantitySelectionButton.FindHandler(EL_TraderMenuUI_ItemElementQuantityComponent));
+		m_QuantitySelectionRoot = Widget.Cast(m_wRoot.FindAnyWidget("PagesBox0"));	
+		m_QuantityComponent = EL_TraderMenuUI_ItemElementQuantityComponent.Cast(m_QuantitySelectionRoot.FindHandler(EL_TraderMenuUI_ItemElementQuantityComponent));
 		
 		m_wElementBorder = m_wRoot.FindAnyWidget("ElementBorder");
 		
@@ -28,7 +28,7 @@ class EL_TraderMenuUI_ItemElementComponent : ScriptedWidgetComponent
 	}
 	
 	override bool OnClick(Widget w, int x, int y, int button)
-	{		
+	{
 		return false;
 	}
 	
@@ -93,5 +93,5 @@ class EL_TraderMenuUI_ItemElementComponent : ScriptedWidgetComponent
 	#ifdef EL_TRADER_SYSTEM_DEBUG
 		Print(ToString() + text);
 	#endif
-	}
+	}*/
 };
