@@ -1,5 +1,5 @@
 FrameWidgetClass {
- Name "InventoryRoot"
+ Name "TraderMenuRoot"
  "Ignore Cursor" 0
  {
   BlurWidgetClass "{5988A8FBF0C281B1}" {
@@ -32,12 +32,12 @@ FrameWidgetClass {
    Name "DragnDropFrame"
    Slot FrameWidgetSlot "{5645426F032126C2}" {
     Anchor 0 0 1 1
-    PositionX -7.54
-    OffsetLeft -7.54
+    PositionX -4.87
+    OffsetLeft -4.87
     PositionY 3.839
     OffsetTop 3.839
     SizeX 0
-    OffsetRight 7.54
+    OffsetRight 4.869
     SizeY 0.003
     OffsetBottom -3.842
    }
@@ -75,6 +75,78 @@ FrameWidgetClass {
        Format "HDR High"
        "Use clear color" 1
        "Blend mode" Blend
+      }
+     }
+    }
+   }
+  }
+  OverlayWidgetClass "{5988A215B1678EAF}" : "{6F1E013D3D33703D}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
+   Name "TraderMenuBase"
+   Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
+    Anchor 0 0 0 0
+    PositionX 96
+    OffsetLeft 96
+    PositionY 54
+    OffsetTop 54
+    SizeX 1728
+    OffsetRight -1824
+    SizeY 972
+    OffsetBottom -1026
+   }
+   {
+    SizeLayoutWidgetClass "{5988A2160FE370A6}" {
+     Prefab "{5988A2160FE370A6}"
+     Slot OverlayWidgetSlot "{589EF8CE4D84EB10}" {
+      HorizontalAlign 0
+      VerticalAlign 0
+     }
+     components {
+      SCR_ForceAspectRatioComponent "{598D2C5AF7CBF0DA}" {
+       m_fRatio 1
+      }
+     }
+     WidthOverride 960
+     HeightOverride 925
+     {
+      VerticalLayoutWidgetClass "{5988A2160FE370A0}" {
+       Prefab "{5988A2160FE370A0}"
+       {
+        VerticalLayoutWidgetClass "{5988A2160FE370AE}" {
+         Prefab "{5988A2160FE370AE}"
+         components {
+          SCR_TabViewComponent "{546B27D01CA8A38D}" {
+           m_aElements {
+            SCR_TabViewContent "{5988A2175C5FB0CB}" {
+             m_ElementLayout "{4A45216FF21D4965}UI/Layouts/Menus/Trader/EL_TraderMenuList.layout"
+             m_sTabButtonContent "STOCK"
+            }
+            SCR_TabViewContent "{5988A8FBCAE514AC}" {
+             m_ElementLayout "{4A45216FF21D4965}UI/Layouts/Menus/Trader/EL_TraderMenuList.layout"
+             m_sTabButtonContent "SELL"
+            }
+            SCR_TabViewContent "{598B2E0AF4508699}" {
+             m_ElementLayout "{4A45216FF21D4965}UI/Layouts/Menus/Trader/EL_TraderMenuList.layout"
+             m_sTabButtonContent "BUYBACK"
+            }
+           }
+           m_bKeepHiddenTabs 1
+           m_bCreateAllTabsAtStart 1
+           m_bCycleMode 1
+          }
+         }
+         {
+          ImageWidgetClass "{00000000DB4F9EA9}" {
+           Prefab "{00000000DB4F9EA9}"
+           Slot LayoutSlot "{54871745AA809762}" {
+           }
+          }
+         }
+        }
+        ImageWidgetClass "{5988A2160FE370A8}" {
+         Prefab "{5988A2160FE370A8}"
+         "Is Visible" 1
+        }
+       }
       }
      }
     }
@@ -945,13 +1017,13 @@ FrameWidgetClass {
            components {
             SCR_NavigationBarUI "{598C87EE79AC9BFA}" {
              m_aEntries {
-              NavigationButtonEntry "{598C87EE7400D70F}" {
-               m_sAction "Trade_Sell"
-               m_sButtonID "ButtonSell"
-              }
               NavigationButtonEntry "{598C87EE6ED9AFF2}" {
                m_sAction "Inventory_Select"
                m_sButtonID "ButtonSelect"
+              }
+              NavigationButtonEntry "{598C87EE7400D70F}" {
+               m_sAction "Trade_Sell"
+               m_sButtonID "ButtonSell"
               }
               NavigationButtonEntry "{598C87EE1EEF57A1}" {
                m_sAction "Inventory_OpenStorage"
@@ -961,6 +1033,14 @@ FrameWidgetClass {
                m_sAction "Inventory_Move"
                m_sButtonID "ButtonMove"
               }
+              NavigationButtonEntry "{598E85A2CF22E7C6}" {
+               m_sAction "Quantity_Remove"
+               m_sButtonID "ButtonQuantityRemove"
+              }
+              NavigationButtonEntry "{598D2C569AC31FF1}" {
+               m_sAction "Quantity_Add"
+               m_sButtonID "ButtonQuantityAdd"
+              }
              }
             }
            }
@@ -968,72 +1048,6 @@ FrameWidgetClass {
            }
           }
          }
-        }
-       }
-      }
-     }
-    }
-   }
-  }
-  OverlayWidgetClass "{5988A215B1678EAF}" : "{6F1E013D3D33703D}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuBaseTabbed.layout" {
-   Name "TraderMenuBase"
-   Slot FrameWidgetSlot "{54D8A1A69BDC4E85}" {
-    PositionX 0
-    OffsetLeft 0
-    PositionY 0
-    OffsetTop 0
-    SizeX -960
-    OffsetRight 0
-    SizeY -43.187
-    OffsetBottom 0
-   }
-   {
-    SizeLayoutWidgetClass "{5988A2160FE370A6}" {
-     Prefab "{5988A2160FE370A6}"
-     Slot OverlayWidgetSlot "{589EF8CE4D84EB10}" {
-      HorizontalAlign 0
-      VerticalAlign 0
-     }
-     WidthOverride 960
-     HeightOverride 925
-     {
-      VerticalLayoutWidgetClass "{5988A2160FE370A0}" {
-       Prefab "{5988A2160FE370A0}"
-       {
-        VerticalLayoutWidgetClass "{5988A2160FE370AE}" {
-         Prefab "{5988A2160FE370AE}"
-         components {
-          SCR_TabViewComponent "{546B27D01CA8A38D}" {
-           m_aElements {
-            SCR_TabViewContent "{5988A2175C5FB0CB}" {
-             m_ElementLayout "{469661C42A64CE57}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuContentScroller.layout"
-             m_sTabButtonContent "STOCK"
-            }
-            SCR_TabViewContent "{5988A8FBCAE514AC}" {
-             m_ElementLayout "{469661C42A64CE57}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuContentScroller.layout"
-             m_sTabButtonContent "SELL"
-            }
-            SCR_TabViewContent "{598B2E0AF4508699}" {
-             m_ElementLayout "{469661C42A64CE57}UI/Layouts/WidgetLibrary/BaseElements/WLib_MenuContentScroller.layout"
-             m_sTabButtonContent "BUYBACK"
-            }
-           }
-           m_bKeepHiddenTabs 1
-           m_bCreateAllTabsAtStart 1
-           m_bCycleMode 1
-          }
-         }
-         {
-          ImageWidgetClass "{00000000DB4F9EA9}" {
-           Prefab "{00000000DB4F9EA9}"
-           Slot LayoutSlot "{54871745AA809762}" {
-           }
-          }
-         }
-        }
-        ImageWidgetClass "{5988A2160FE370A8}" {
-         Prefab "{5988A2160FE370A8}"
-         "Is Visible" 1
         }
        }
       }

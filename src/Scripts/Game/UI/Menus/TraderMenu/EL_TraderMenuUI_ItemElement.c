@@ -8,11 +8,13 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	
 	protected Widget m_wRoot;
 	protected RichTextWidget m_wItemName;
+	protected RenderTargetWidget m_wPreviewImage;
 	protected ItemPreviewWidget m_wItemPreview;
-	protected ButtonWidget m_wItemButton;
+	//protected ButtonWidget m_wItemButton;
 	protected ButtonWidget m_wAddQuantityButton;
 	protected ButtonWidget m_wRemoveQuantityButton;
 	protected RichTextWidget m_wQuantityText;
+	protected ImageWidget m_wElementBackground;
 	
 	protected UIInfo m_ItemUIInfo;
 	protected SCR_InventoryItemInfoUI m_pItemInfo;
@@ -21,21 +23,31 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	
 	protected SCR_PagingButtonComponent m_QuantityAddButton;
 	protected SCR_PagingButtonComponent m_QuantityRemoveButton;
-	protected SCR_ButtonBaseComponent m_ItemButton;
+	//protected SCR_ButtonBaseComponent m_ItemButton;
+	protected EL_TraderMenuUI_ItemElementComponent m_ItemElementComponent;
 	
 	protected int m_Quantity = 0;
 	protected int m_QuantityMax = 99;
 	protected bool m_bSHIFT = false;
 	protected const int SHIFT_QUANTITY = 10;
+	protected bool m_bSelected = false;
 	
 	//------------------------------------------------------------------------------------------------
-	void EL_TraderMenuUI_ItemElement(EL_TraderMenuUI traderMenu, GridLayoutWidget grid, EL_TraderItemInfo itemInfo)
+	//! MEMBER METHODS
+	//------------------------------------------------------------------------------------------------
+	
+	//------------------------------------------------------------------------------------------------
+	void EL_TraderMenuUI_ItemElement(EL_TraderMenuUI traderMenu, VerticalLayoutWidget list, EL_TraderItemInfo itemInfo)
 	{
+		DebugPrint("::EL_TraderMenuUI_ItemElement - Start");
+		
 		m_TraderMenu = traderMenu;
 		m_ItemInfo = itemInfo;
 		
-		m_wRoot = GetGame().GetWorkspace().CreateWidgets("{EA9D038CEDA914A1}UI/Layouts/Menus/Trader/EL_TraderItemElementNew.layout", grid);
+		m_wRoot = GetGame().GetWorkspace().CreateWidgets("{EA9D038CEDA914A1}UI/Layouts/Menus/Trader/EL_TraderItemElementNew.layout", list);
 		m_wRoot.AddHandler(this);
+		
+		DebugPrint("::EL_TraderMenuUI_ItemElement - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -46,46 +58,10 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void Destroy()
-	{
-		m_wRoot.RemoveHandler(this);
-		m_wRoot.RemoveFromHierarchy();
-	}
-	
-	//------------------------------------------------------------------------------
-	protected override void HandlerAttached(Widget w)
-	{
-		m_wItemName = RichTextWidget.Cast(m_wRoot.FindAnyWidget("ItemName"));
-		m_wItemPreview = ItemPreviewWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
-		
-		m_wItemButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("Button0"));
-		m_ItemButton = SCR_ButtonBaseComponent.Cast(m_wItemButton.FindHandler(SCR_ButtonBaseComponent));
-		if (!m_ItemButton)
-			return;
-		
-		m_ItemButton.m_OnClicked.Insert(OnItemButtonClicked);
-
-		m_wQuantityText = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PagesText"));
-		m_wAddQuantityButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ButtonAdd")); 
-		m_QuantityAddButton = SCR_PagingButtonComponent.Cast(m_wAddQuantityButton.FindHandler(SCR_PagingButtonComponent));
-		if (!m_QuantityAddButton)
-			return;
-		
-		m_QuantityAddButton.m_OnClicked.Insert(OnAddQuantityButtonClicked);
-		
-		m_wRemoveQuantityButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ButtonRemove")); 
-		m_QuantityRemoveButton = SCR_PagingButtonComponent.Cast(m_wRemoveQuantityButton.FindHandler(SCR_PagingButtonComponent));
-		if (!m_QuantityRemoveButton)
-			return;
-		
-		m_QuantityRemoveButton.m_OnClicked.Insert(OnRemoveQuantityButtonClicked);
-
-		SetElement();
-	}
-	
-	//------------------------------------------------------------------------------------------------
 	protected void SetElement()
 	{
+		DebugPrint("::SetElement - Start");
+		
 		if (!m_ItemInfo) 
 			return;
 		
@@ -106,6 +82,8 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		
 		m_wItemName.SetText(m_ItemUIInfo.GetName());
 		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
+		
+		DebugPrint("::SetElement - End");
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -137,7 +115,8 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		{
 			m_PreviewManager.SetPreviewItem(m_wItemPreview, previewItem);
 			previewItem.ClearFlags(EntityFlags.ACTIVE | EntityFlags.TRACEABLE, true);
-			previewItem.SetFlags(EntityFlags.NO_LINK, true);
+			previewItem.SetFlags(EntityFlags.NO_LINK, true);			
+			m_wItemPreview.SetResolutionScale(1, 1);
 		}
 	}
 	
@@ -201,9 +180,15 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	protected void OnItemButtonClicked(SCR_ButtonBaseComponent buttonComponent)
+	protected void OnItemButtonFocus()
 	{
-		m_TraderMenu.SetSelectedItem(m_ItemInfo);
+		m_TraderMenu.SetFocusedItemElement(this);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void OnItemButtonFocusLost()
+	{
+		m_TraderMenu.SetFocusedItemElement(null);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -235,40 +220,11 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 		
 		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
 	}
-
-	//------------------------------------------------------------------------------------------------
-	protected override bool OnMouseEnter(Widget w, int x, int y)
-	{
-		super.OnMouseEnter(w, x, y);
-		
-		if (w == m_wItemButton && m_ItemUIInfo)
-			ShowItemInfo(m_ItemUIInfo.GetName(), m_ItemUIInfo.GetDescription());
-		
-		return false;
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	protected override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
-	{
-		super.OnMouseLeave(w, enterW, x, y);
-		
-		if (w == m_wItemButton && m_pItemInfo)
-			HideItemInfo();
-		
-		return false;
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	ResourceName GetItemResourceName()
-	{
-		return m_ItemResourceName;
-	}
 	
 	//------------------------------------------------------------------------------------------------
 	void SetQuantityMax(int max)
 	{
 		m_QuantityMax = max;
-		
 		m_wQuantityText.SetText(m_Quantity.ToString() + "/" + m_QuantityMax.ToString());
 	}
 	
@@ -284,5 +240,167 @@ class EL_TraderMenuUI_ItemElement: ScriptedWidgetComponent
 	int GetQuantity()
 	{
 		return m_Quantity;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SetElementSize(float x, float y)
+	{
+		ImageWidget imageBackground = ImageWidget.Cast(m_wRoot.FindAnyWidget("Background"));
+		
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SetVisible(bool state)
+	{
+		m_wRoot.SetVisible(state);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SetSelected(bool state)
+	{
+		m_bSelected = state;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	bool IsElementSelected() 
+	{ 
+		return m_bSelected;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	/*ButtonWidget GetItemButton()
+	{
+		return m_wItemButton;
+	}*/
+	
+	//------------------------------------------------------------------------------------------------
+	ResourceName GetItemResourceName()
+	{
+		return m_ItemResourceName;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	EL_TraderMenuUI_ItemElementComponent GetItemElementComponent()
+	{
+		return m_ItemElementComponent;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	//! BASE CLASS OVERRIDES
+	//------------------------------------------------------------------------------------------------
+	
+	//------------------------------------------------------------------------------
+	protected override void HandlerAttached(Widget w)
+	{
+		DebugPrint("::HandlerAttached - Start");
+		
+		m_wItemName = RichTextWidget.Cast(m_wRoot.FindAnyWidget("ItemName"));
+		m_wPreviewImage = ItemPreviewWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
+		m_wItemPreview = ItemPreviewWidget.Cast(m_wPreviewImage);
+		m_wElementBackground = ImageWidget.Cast(m_wRoot.FindAnyWidget("ItemPreview"));
+		
+		/*m_wItemButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("Button0"));
+		m_ItemButton = SCR_ButtonBaseComponent.Cast(m_wItemButton.FindHandler(SCR_ButtonBaseComponent));
+		if (!m_ItemButton)
+			return;
+		
+		m_ItemButton.m_OnClicked.Insert(OnItemButtonClicked);*/
+
+		m_wQuantityText = RichTextWidget.Cast(m_wRoot.FindAnyWidget("PagesText"));
+		m_wAddQuantityButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ButtonAdd")); 
+		m_QuantityAddButton = SCR_PagingButtonComponent.Cast(m_wAddQuantityButton.FindHandler(SCR_PagingButtonComponent));
+		if (!m_QuantityAddButton)
+			return;
+		
+		m_QuantityAddButton.m_OnClicked.Insert(OnAddQuantityButtonClicked);
+		
+		m_wRemoveQuantityButton = ButtonWidget.Cast(m_wRoot.FindAnyWidget("ButtonRemove")); 
+		m_QuantityRemoveButton = SCR_PagingButtonComponent.Cast(m_wRemoveQuantityButton.FindHandler(SCR_PagingButtonComponent));
+		if (!m_QuantityRemoveButton)
+			return;
+		
+		m_QuantityRemoveButton.m_OnClicked.Insert(OnRemoveQuantityButtonClicked);
+
+		m_ItemElementComponent = EL_TraderMenuUI_ItemElementComponent.Cast(m_wRoot.FindHandler(EL_TraderMenuUI_ItemElementComponent));
+		if (!m_ItemElementComponent)
+			return;
+		
+		m_ItemElementComponent.SetTraderMenu(m_TraderMenu);
+		
+		SetElement();
+		
+		DebugPrint("::HandlerAttached - End");
+	}	
+	
+	//------------------------------------------------------------------------------------------------
+	protected override bool OnMouseEnter(Widget w, int x, int y)
+	{
+		DebugPrint("::OnMouseEnter - Start");
+		DebugPrint("::OnMouseEnter - Widget: " + w.GetName());
+		
+		super.OnMouseEnter(w, x, y);
+		
+		if (w == m_wRoot && m_ItemUIInfo)
+		{
+			ShowItemInfo(m_ItemUIInfo.GetName(), m_ItemUIInfo.GetDescription());
+		}
+		
+		DebugPrint("::OnMouseEnter - End");
+		
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
+	{
+		DebugPrint("::OnMouseLeave - Start");
+		DebugPrint("::OnMouseLeave - Widget: " + w.GetName());
+		
+		super.OnMouseLeave(w, enterW, x, y);
+		
+		if (w == m_wRoot && m_pItemInfo)
+		{
+			HideItemInfo();
+		}
+		
+		DebugPrint("::OnMouseLeave - End");
+		
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override bool OnFocus(Widget w, int x, int y)
+	{
+		DebugPrint("::OnFocus - Start");
+		DebugPrint("::OnFocus - Widget: " + w.GetName());
+		
+		if (w == m_wRoot)
+			OnItemButtonFocus();
+		
+		DebugPrint("::OnFocus - End");
+		
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	override bool OnFocusLost(Widget w, int x, int y)
+	{
+		DebugPrint("::OnFocusLost - Start");
+		DebugPrint("::OnFocusLost - Widget: " + w.GetName());		
+		
+		if (w == m_wRoot)
+			OnItemButtonFocusLost();
+		
+		DebugPrint("::OnFocusLost - End");
+		
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void DebugPrint(string text)
+	{
+	#ifdef EL_TRADER_SYSTEM_DEBUG
+		Print(ToString() + text);
+	#endif
 	}
 };

@@ -1,33 +1,21 @@
-SizeLayoutWidgetClass {
+OverlayWidgetClass {
  Name "rootFrame"
- Slot OverlayWidgetSlot "{59886E8EF50E630C}" {
-  HorizontalAlign 0
-  VerticalAlign 0
- }
- AllowWidthOverride 1
- WidthOverride 500
- AllowHeightOverride 1
- HeightOverride 700
  {
-  ScrollLayoutWidgetClass "{5988A216990AA4C1}" {
+  ScrollLayoutWidgetClass "{598CDB16D2CC1208}" {
    Name "ScrollLayout0"
-   Slot OverlayWidgetSlot "{5988A216DD81D4D1}" {
-    HorizontalAlign 0
-    VerticalAlign 0
+   Slot OverlayWidgetSlot "{56691148E692437F}" {
+    HorizontalAlign 3
+    VerticalAlign 3
    }
-   Color 0.761 0.386 0.078 1
-   "Inherit Color" 1
-   style Small
+   Color 0.761 0.386 0.08 1
    "Scrollbar Always Visible" 1
    {
-    GridLayoutWidgetClass "{5988A216990AA4C2}" {
-     Name "ItemListGrid"
-     Slot LayoutSlot "{59886E9D7854F552}" {
-      Padding 10 0 5 0
-     }
-     "Ignore Cursor" 0
-     Color 0 0 0 0.043
-     ColumnFill {
+    VerticalLayoutWidgetClass "{598CDB16D2CC1209}" {
+     Name "ItemList"
+     Slot AlignableSlot "{56691148E013D9A9}" {
+      HorizontalAlign 3
+      VerticalAlign 3
+      Padding 0 0 0 0
      }
     }
    }

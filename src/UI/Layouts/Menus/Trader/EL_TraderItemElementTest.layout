@@ -1,0 +1,77 @@
+ButtonWidgetClass {
+ Name "EL_TraderItemElement"
+ Slot AlignableSlot "{554ADB1D2D5974C0}" {
+  HorizontalAlign 3
+ }
+ style blank
+ {
+  SizeLayoutWidgetClass "{598D14E69928FB5F}" {
+   Name "SizeLayout"
+   Slot ButtonWidgetSlot "{5548E6E7E6AEDDC1}" {
+    HorizontalAlign 3
+   }
+   AllowHeightOverride 1
+   HeightOverride 64
+   {
+    OverlayWidgetClass "{598D14E69928FB59}" {
+     Name "Overlay"
+     Slot ButtonWidgetSlot "{5548E6E7F213FB11}" {
+      HorizontalAlign 0
+     }
+     Clipping False
+     {
+      PanelWidgetClass "{598D14E69928FB5A}" {
+       Name "Border"
+       Slot OverlayWidgetSlot "{5548E6E7D859FCD2}" {
+        HorizontalAlign 3
+        VerticalAlign 3
+       }
+       "Is Visible" 0
+       Color 0.761 0.386 0.08 1
+       style outline_2px
+      }
+      HorizontalLayoutWidgetClass "{598D14E69928FB5B}" {
+       Name "HorizontalLayout0"
+       Slot OverlayWidgetSlot "{55D07705FF5FD692}" {
+        HorizontalAlign 0
+        Padding 8 8 8 8
+       }
+       {
+        SizeLayoutWidgetClass "{598D14E6448CF8E7}" {
+         Name "SizeLayout0"
+         Slot LayoutSlot {
+         }
+         AllowWidthOverride 1
+         WidthOverride 64
+         AllowHeightOverride 1
+         HeightOverride 64
+         {
+          ItemPreviewWidgetClass "{598D14E6448CF8E0}" {
+           Name "ItemPreview"
+           Slot OverlayWidgetSlot "{51D097169E7D2846}" {
+            HorizontalAlign 3
+            VerticalAlign 3
+           }
+           Filter Bilinear
+           Format LDR
+           "Use clear color" 1
+           "Clear Color" 0 0 0 1
+           "Blend mode" Blend
+          }
+         }
+        }
+        TextWidgetClass "{598D14E69928FB47}" : "{E64DA8292CD7DBDD}UI/layouts/WidgetLibrary/TextWidgets/Text_InteractiveSmall.layout" {
+         Name "Text"
+         Slot LayoutSlot "{55D0770587533699}" {
+          VerticalAlign 1
+         }
+         "Min Font Size" 20
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
